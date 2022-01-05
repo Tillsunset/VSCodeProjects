@@ -20,7 +20,6 @@ snakePositionList = []
 
 vertexArray = []
 
-t
 
 # class Rect:
 #     def __init__(self, X, Y, Width, Height):
@@ -68,5 +67,3 @@ while not snake.gameClose:
 snake.quitCall()
 
 import time
-
-time.
