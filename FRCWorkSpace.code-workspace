@@ -1,7 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "Java/2020Test"
+			"path": "Java\\2020Test-Imported"
 		}
-	]
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.server.launchMode": "Standard"
+	}
 }
