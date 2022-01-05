@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "Html/Tillsunset.github.io"
+		},
+		{
+			"path": "Html/VandyTab"
+		}
+	],
+	"settings": {
+		"xenlive-edit.remote.deviceIP": "root@localhost",
+		"xenlive-edit.remote.widgetName": "test",
+		"liveServer.settings.multiRootWorkspaceName": "Tillsunset.github.io"
+	}
+}

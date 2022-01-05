@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "C++"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"NintendoHireMe.C": "cpp",
+			"HireMe.C": "cpp",
+			"Test.C": "cpp"
+		}
+	}
+}
