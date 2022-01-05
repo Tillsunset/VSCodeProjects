@@ -74,7 +74,7 @@ public class Pokemon extends Application {
             }
         }*/
 
-        Image sprite = new Image(new FileInputStream("C:\\Users\\Sebastian\\Desktop\\Pokemon\\images\\Spritev2.png"));
+        Image sprite = new Image(new FileInputStream(".\\images\\Spritev2.png"));
         WritableImage spriteFilter = new WritableImage((int) sprite.getWidth(), (int) sprite.getHeight());
         PixelWriter spritePixelWriter = spriteFilter.getPixelWriter();
         ridBackground(spritePixelWriter, sprite);
