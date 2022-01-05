@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 
 int main() {
 
@@ -10,7 +9,7 @@ int main() {
    y=x;
    y++;
    (*y)++;
-   std::cout << x[0] <<" " << x[1] << endl;
+   std::cout << x[0] <<" " << x[1] << std::endl;
    return 0;
 
 }
