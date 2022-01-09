@@ -69,7 +69,7 @@ public class RobotContainer {
   private final Test m_Test = new Test(m_FlyWheel);
 
   SendableChooser<String> autoChooser;
-  double period = .01;
+  double period;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -162,15 +162,19 @@ public class RobotContainer {
 
         default: {
           RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+          CommandGroup temp;
+          temp.addSequential(part1);
 
-          return new CommandGroup(part1);
+          return temp;
         }
       }
     } 
     catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+      CommandGroup temp;
+      temp.addSequential(m_autoCommand);
 
-      return new CommandGroup(m_autoCommand);
+      return temp;
     }
   }
 
@@ -182,15 +186,16 @@ public class RobotContainer {
       trajectory,
       m_DriveTrain::getPose,
       new RamseteController(2.0, .7),
-      new SimpleMotorFeedforward(
-        DriveTrain.ksVolts,
-        DriveTrain.kvVoltSecondsPerMeter,
-        DriveTrain.kaVoltSecondsSquaredPerMeter),
+      new SimpleMotorFeedforward( DriveTrain.ksVolts,
+                                  DriveTrain.kvVoltSecondsPerMeter,
+                                  DriveTrain.kaVoltSecondsSquaredPerMeter),
       DriveTrain.kDriveKinematics, 
       m_DriveTrain::getWheelSpeeds,
       new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
       new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
       m_DriveTrain::tankDriveVolts,
       m_DriveTrain);
+
+
   }
 }
