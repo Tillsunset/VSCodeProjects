@@ -17,14 +17,16 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.trajectory.*;
-import edu.wpi.first.wpilibj.controller.*;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.math.trajectory.*;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -35,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private PowerDistributionPanel PDP = new PowerDistributionPanel(0);
+  private PowerDistribution PDP = new PowerDistribution(0, ModuleType.kCTRE);
 
   private XboxController xbox = new XboxController(0);
   private JoystickButton button1 = new JoystickButton(xbox, 1);
@@ -110,11 +112,11 @@ public class RobotContainer {
 
   public void votlageCompressorControl() {
     if (PDP.getVoltage() < 10 ||
-        m_Shoot.isScheduled()) {
-      m_Pneumatics.c.setClosedLoopControl(false);
+        m_Shoot.isRunning()) {
+          m_Pneumatics.c.disable();
     } 
     else {
-      m_Pneumatics.c.setClosedLoopControl(true);
+      m_Pneumatics.c.enableDigital();
     }
   }
 
@@ -123,7 +125,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public SequentialCommandGroup getAutonomousCommand() {
+  public CommandGroup getAutonomousCommand() {
 
     // An example trajectory to follow. All units in meter.
     //String trajectoryJSON = "output/YourPath.wpilib.json";
@@ -137,9 +139,10 @@ public class RobotContainer {
         case "path 1": {
           RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
           RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+          CommandGroup temp;
+          temp.addSequential(part1);
 
-          return new SequentialCommandGroup(
-            part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
+          return new CommandGroup(
             m_Test,
             part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
         }
@@ -149,7 +152,7 @@ public class RobotContainer {
           RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
           RamseteCommand part3 = simplfyRamseteCommand(unnamed);
 
-          return new SequentialCommandGroup(
+          return new CommandGroup(
             part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
             new ParallelCommandGroup(
               m_Test,
@@ -160,14 +163,14 @@ public class RobotContainer {
         default: {
           RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
 
-          return new SequentialCommandGroup(part1);
+          return new CommandGroup(part1);
         }
       }
     } 
     catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
 
-      return new SequentialCommandGroup(m_autoCommand);
+      return new CommandGroup(m_autoCommand);
     }
   }
 

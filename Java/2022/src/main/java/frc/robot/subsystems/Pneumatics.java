@@ -8,16 +8,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Pneumatics extends Subsystem {
+  public Compressor c = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
-  public Compressor c = new Compressor();
-
-  public DoubleSolenoid intake = new DoubleSolenoid(0, 1);
-  public DoubleSolenoid shifters = new DoubleSolenoid(2, 3);
+  public DoubleSolenoid intake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  public DoubleSolenoid shifters = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
   //Solenoid test = new Solenoid(6);
 
   public Pneumatics() {
@@ -41,7 +41,6 @@ public class Pneumatics extends Subsystem {
 
   @Override
   public void periodic() {
-    
   }
 
   @Override

@@ -11,9 +11,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpi
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * project.
  */
 public class Robot extends TimedRobot {
-  private SequentialCommandGroup m_autonomousCommand;
+  private CommandGroup m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
   public Robot() {
@@ -58,7 +57,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
+    Scheduler.getInstance().run();
     m_robotContainer.shift();
     m_robotContainer.votlageCompressorControl();
   }
@@ -83,7 +82,7 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+      m_autonomousCommand.start();
     }
   }
 
@@ -115,7 +114,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
+    Scheduler.getInstance().removeAll();
   }
 
   /**

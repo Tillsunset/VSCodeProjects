@@ -13,12 +13,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.*;
+import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -33,8 +33,8 @@ public class DriveTrain extends Subsystem {
   public WPI_TalonSRX driveFL = talonSRXConstructor(3);
   public WPI_TalonSRX driveBL = talonSRXConstructor(4);
 
-  SpeedControllerGroup left = new SpeedControllerGroup(driveFL, driveBL);
-  SpeedControllerGroup right = new SpeedControllerGroup(driveFR, driveBR);
+  MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
+  MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
   DifferentialDrive driveBase = new DifferentialDrive(left, right);
   
   XboxController xbox;
