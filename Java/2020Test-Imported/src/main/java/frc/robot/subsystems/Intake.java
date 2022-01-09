@@ -10,12 +10,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Intake extends SubsystemBase {
-  WPI_VictorSPX intake = victorSPXConstructor(7);
+public class Intake extends Subsystem {
+  WPI_VictorSPX intakeMotor = victorSPXConstructor(7);
 
   public Intake() {
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    
   }
 
   @Override
@@ -23,15 +28,15 @@ public class Intake extends SubsystemBase {
   }
 
   public void in() {
-    intake.set(.5);
+    intakeMotor.set(.5);
   }
 
   public void out() {
-    intake.set(-.5);
+    intakeMotor.set(-.5);
   }
 
   public void stop() {
-    intake.set(0);
+    intakeMotor.set(0);
   }
 
   private WPI_VictorSPX victorSPXConstructor(int x){

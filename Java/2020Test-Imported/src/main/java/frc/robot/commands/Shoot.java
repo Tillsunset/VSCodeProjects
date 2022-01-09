@@ -9,12 +9,12 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Index;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class Shoot extends CommandBase {
+public class Shoot extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final FlyWheel m_FlyWheel;
   private final Index m_Index;
@@ -27,9 +27,9 @@ public class Shoot extends CommandBase {
   public Shoot(FlyWheel FlyWheel, Index Index) {
     m_FlyWheel = FlyWheel;
     m_Index = Index;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_FlyWheel);
-    addRequirements(m_Index);
+    // Use requires() here to declare subsystem dependencies.
+    requires(m_FlyWheel);
+    requires(m_Index);
   }
 
   // Called when the command is initially scheduled.
@@ -47,7 +47,7 @@ public class Shoot extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end( ) {
     m_FlyWheel.stop();
     m_Index.stop();
   }

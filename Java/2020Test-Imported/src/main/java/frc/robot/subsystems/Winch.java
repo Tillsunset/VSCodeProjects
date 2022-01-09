@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Winch extends SubsystemBase {
+public class Winch extends Subsystem {
   WPI_VictorSPX winchMotor = victorSPXConstructor(8);
 
   public Winch() {
@@ -36,5 +36,11 @@ public class Winch extends SubsystemBase {
     temp.setNeutralMode(NeutralMode.Coast);
 
     return temp;
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    // TODO Auto-generated method stub
+    
   }
 }

@@ -14,9 +14,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class FlyWheel extends SubsystemBase {
+public class FlyWheel extends Subsystem {
   WPI_TalonSRX driveF = talonSRXConstructor(5);
   WPI_TalonSRX driveB = talonSRXConstructor(6);
   WPI_VictorSPX elevator = victorSPXConstructor(8);
@@ -118,5 +118,11 @@ public class FlyWheel extends SubsystemBase {
     temp.setNeutralMode(NeutralMode.Coast);
 
     return temp;
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    // TODO Auto-generated method stub
+    
   }
 }

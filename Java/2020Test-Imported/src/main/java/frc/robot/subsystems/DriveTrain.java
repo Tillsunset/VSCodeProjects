@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.*;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends Subsystem {
   public static final double kaVoltSecondsSquaredPerMeter = 0;// tune these
   public static final double kvVoltSecondsPerMeter = 0;
   public static final double ksVolts = 0;
@@ -90,5 +90,11 @@ public class DriveTrain extends SubsystemBase {
     temp.setNeutralMode(NeutralMode.Brake);
 
     return temp;
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    // TODO Auto-generated method stub
+    
   }
 }

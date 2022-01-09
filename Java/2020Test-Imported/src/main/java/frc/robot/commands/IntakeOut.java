@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Pneumatics;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class IntakeOut extends CommandBase {
+public class IntakeOut extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_Pneumatics;
 
@@ -24,8 +24,8 @@ public class IntakeOut extends CommandBase {
    */
   public IntakeOut(Pneumatics Pneumatics) {
     m_Pneumatics = Pneumatics;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_Pneumatics);
+    // Use requires() here to declare subsystem dependencies.
+    requires(m_Pneumatics);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class IntakeOut extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end( ) {
   }
 
   // Returns true when the command should end.

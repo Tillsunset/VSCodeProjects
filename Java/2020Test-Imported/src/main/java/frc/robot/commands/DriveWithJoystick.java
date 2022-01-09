@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class DriveWithJoystick extends CommandBase {
+public class DriveWithJoystick extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_DriveTrain;
 
@@ -24,8 +24,8 @@ public class DriveWithJoystick extends CommandBase {
    */
   public DriveWithJoystick(DriveTrain DriveTrain) {
     m_DriveTrain = DriveTrain;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_DriveTrain);
+    // Use requires() here to declare subsystem dependencies.
+    requires(m_DriveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class DriveWithJoystick extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end( ) {
   }
 
   // Returns true when the command should end.
