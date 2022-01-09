@@ -1,11 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "Java\\2020Test-Imported"
+			"path": "Java\\2022"
 		}
 	],
-	"settings": {
-		"java.configuration.updateBuildConfiguration": "automatic",
-		"java.server.launchMode": "Standard"
-	}
+	"settings": {}
 }
