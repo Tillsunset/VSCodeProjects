@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Shoot extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final FlyWheel m_FlyWheel;
-  private final Camera m_Camera;
   private final Pneumatics m_Pneumatics;
 
   double lastPosition;
@@ -36,7 +35,7 @@ public class Shoot extends Command {
   double integral;
   double derivative;
   double power;
-  NetworkTableEntry ty ;
+  NetworkTableEntry ty;
 
   double kP;// tune these values
   double kI;
@@ -54,8 +53,8 @@ public class Shoot extends Command {
    */
   public Shoot(FlyWheel FlyWheel, Camera Camera, Pneumatics Pneumatics) {
     m_FlyWheel = FlyWheel;
-    m_Camera = Camera;
     m_Pneumatics = Pneumatics;
+    ty = Camera.getTy();
     // Use requires() here to declare subsystem dependencies.
     requires(m_FlyWheel);
     requires(m_Pneumatics);
@@ -75,7 +74,6 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {lastPosition = currentPosition;
-    ty = m_Camera.getTy();
     currentPosition = m_FlyWheel.driveF.getSelectedSensorPosition();
     lastTime = currentTime;
     currentTime = Timer.getFPGATimestamp();
