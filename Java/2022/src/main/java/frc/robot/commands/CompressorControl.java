@@ -7,24 +7,26 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.PDP;
 import frc.robot.subsystems.Pneumatics;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class IntakeIn extends Command {
+public class CompressorControl extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_Pneumatics;
+  private final PDP m_PDP;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeIn(Pneumatics Pneumatics) {
+  public CompressorControl(Pneumatics Pneumatics, PDP PDP) {
     m_Pneumatics = Pneumatics;
+    m_PDP = PDP;
     // Use requires() here to declare subsystem dependencies.
     requires(m_Pneumatics);
   }
@@ -32,12 +34,17 @@ public class IntakeIn extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.intake.set(Value.kReverse);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_PDP.getVoltage() < 10) {
+      m_Pneumatics.c.disable();
+    } 
+    else {
+      m_Pneumatics.c.enableDigital();
+    }
   }
 
   // Called once the command ends or is interrupted.

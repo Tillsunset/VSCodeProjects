@@ -7,31 +7,31 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Index;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ShiftUp extends Command {
+public class SpinIndex extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Pneumatics m_Pneumatics;
+  private final Index m_Index;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShiftUp(Pneumatics Pneumatics) {
-    m_Pneumatics = Pneumatics;
+  public SpinIndex(Index Index) {
+    m_Index = Index;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_Pneumatics);
+    requires(m_Index);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.shiftUp();
+    m_Index.index.set(.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +42,7 @@ public class ShiftUp extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end( ) {
+    m_Index.index.set(0);
   }
 
   // Returns true when the command should end.

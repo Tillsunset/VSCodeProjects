@@ -7,30 +7,30 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Winch extends Subsystem {
-  public WPI_VictorSPX winchMotor = victorSPXConstructor(8);
+public class PDP extends Subsystem {
+  private PowerDistribution powerDistribution = new PowerDistribution(0, ModuleType.kCTRE);
+  
+  public PDP() {
+    /*
+     * Creates a new ExampleSubsystem.
+     */
+  }
 
-  public Winch() {
+  public double getVoltage() {
+    return powerDistribution.getVoltage();
   }
 
   @Override
   public void periodic() {
-  }
-
-  private WPI_VictorSPX victorSPXConstructor(int x){
-    WPI_VictorSPX temp = new WPI_VictorSPX(x);
-
-    temp.setNeutralMode(NeutralMode.Coast);
-
-    return temp;
+    // This method will be called once per scheduler run
   }
 
   @Override
   protected void initDefaultCommand() {
+    
   }
 }

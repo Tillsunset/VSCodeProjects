@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,13 +17,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveWithJoystick extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_DriveTrain;
+  XboxController xbox;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveWithJoystick(DriveTrain DriveTrain) {
+  public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
+    xbox = x;
     m_DriveTrain = DriveTrain;
     // Use requires() here to declare subsystem dependencies.
     requires(m_DriveTrain);
@@ -36,7 +39,7 @@ public class DriveWithJoystick extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveTrain.teleop();
+    m_DriveTrain.driveBase.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
   }
 
   // Called once the command ends or is interrupted.

@@ -13,30 +13,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
-  WPI_VictorSPX intakeMotor = victorSPXConstructor(7);
+  public WPI_VictorSPX intakeMotor = victorSPXConstructor(7);
 
   public Intake() {
   }
 
   @Override
   protected void initDefaultCommand() {
-    
   }
 
   @Override
   public void periodic() {
-  }
-
-  public void in() {
-    intakeMotor.set(.5);
-  }
-
-  public void out() {
-    intakeMotor.set(-.5);
-  }
-
-  public void stop() {
-    intakeMotor.set(0);
   }
 
   private WPI_VictorSPX victorSPXConstructor(int x){

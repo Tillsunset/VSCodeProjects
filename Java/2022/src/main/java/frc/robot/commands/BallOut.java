@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -27,7 +28,7 @@ public class BallOut extends Command {
   public BallOut(Intake Intake, Pneumatics Pneumatics) {
     m_Intake = Intake;
     m_Pneumatics = Pneumatics;
-    // Use requires() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependencies.
     requires(m_Intake);
     requires(m_Pneumatics);
   }
@@ -35,19 +36,19 @@ public class BallOut extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.intakeOut();
+    m_Pneumatics.intake.set(Value.kForward);
+    m_Intake.intakeMotor.set(-.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Intake.out();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
-    m_Intake.stop();
+  public void end() {
+    m_Intake.intakeMotor.set(0);
   }
 
   // Returns true when the command should end.

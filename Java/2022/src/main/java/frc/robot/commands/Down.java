@@ -7,41 +7,42 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Winch;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ShiftDown extends Command {
+public class Down extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Pneumatics m_Pneumatics;
+  private final Winch m_Winch;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShiftDown(Pneumatics Pneumatics) {
-    m_Pneumatics = Pneumatics;
+  public Down(Winch Winch) {
+    m_Winch = Winch;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_Pneumatics);
+    requires(m_Winch);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.shiftDown();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_Winch.winchMotor.set(-0.3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end( ) {
+    m_Winch.winchMotor.set(0);
   }
 
   // Returns true when the command should end.

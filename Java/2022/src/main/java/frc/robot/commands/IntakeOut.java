@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Pneumatics;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -31,7 +32,7 @@ public class IntakeOut extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.intakeOut();
+    m_Pneumatics.intake.set(Value.kForward);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

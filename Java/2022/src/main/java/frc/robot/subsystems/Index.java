@@ -13,21 +13,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Index extends Subsystem {
-  WPI_VictorSPX index = victorSPXConstructor(8);
+  public WPI_VictorSPX index = victorSPXConstructor(8);
 
   public Index() {
   }
 
   @Override
   public void periodic() {
-  }
-
-  public void spin() {
-    index.set(.5);
-  }
-
-  public void stop() {
-    index.set(0);
   }
 
   private WPI_VictorSPX victorSPXConstructor(int x){
@@ -40,7 +32,6 @@ public class Index extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    // TODO Auto-generated method stub
     
   }
 }

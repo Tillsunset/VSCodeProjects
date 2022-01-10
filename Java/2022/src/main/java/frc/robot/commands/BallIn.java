@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -36,19 +36,19 @@ public class BallIn extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Pneumatics.intakeOut();
+    m_Pneumatics.intake.set(Value.kForward);
+    m_Intake.intakeMotor.set(.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Intake.in();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end() {
-    m_Intake.stop();
+    m_Intake.intakeMotor.set(0);
   }
 
   // Returns true when the command should end.

@@ -14,38 +14,36 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+// import edu.wpi.first.math.geometry.Pose2d;
+// import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.kinematics.*;
 
 public class DriveTrain extends Subsystem {
-  public static final double kaVoltSecondsSquaredPerMeter = 0;// tune these
-  public static final double kvVoltSecondsPerMeter = 0;
-  public static final double ksVolts = 0;
-  public static final double kPDriveVel = 0;
-  public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(1);// wheel base in meters
+  // public static final double kaVoltSecondsSquaredPerMeter = 0;// tune these
+  // public static final double kvVoltSecondsPerMeter = 0;
+  // public static final double ksVolts = 0;
+  // public static final double kPDriveVel = 0;
+  // public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(1);// wheel base in meters
 
   public WPI_TalonSRX driveFR = talonSRXConstructor(1);
   public WPI_TalonSRX driveBR = talonSRXConstructor(2);
   public WPI_TalonSRX driveFL = talonSRXConstructor(3);
   public WPI_TalonSRX driveBL = talonSRXConstructor(4);
 
-  MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
-  MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
-  DifferentialDrive driveBase = new DifferentialDrive(left, right);
+  public MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
+  public MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
+  public DifferentialDrive driveBase = new DifferentialDrive(left, right);
   
-  XboxController xbox;
-  double ratio = 6*Math.PI*15/(1024*39.37*3*12);
+  
+  double RATIO = 6*Math.PI*15/(1024*39.37*3*12);
 
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-  private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-      Rotation2d.fromDegrees(getHeading()));
+  // private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+  //     Rotation2d.fromDegrees(getHeading()));
 
-  public DriveTrain(XboxController x) {
-    xbox = x;
+  public DriveTrain() {
     driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     driveFL.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
@@ -54,30 +52,7 @@ public class DriveTrain extends Subsystem {
 
   @Override
   public void periodic() {
-    m_odometry.update(Rotation2d.fromDegrees(getHeading()), driveFL.getSelectedSensorPosition() * ratio, driveFL.getSelectedSensorPosition() * ratio);
-  }
-
-  public void teleop() {
-    driveBase.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
-  }
-
-  public double getHeading() {
-    return Math.IEEEremainder(gyro.getAngle(), 360) * -1;
-  }
-  
-  
-  public Pose2d getPose() {
-    return m_odometry.getPoseMeters();
-  }
-
-  public void tankDriveVolts(double leftVolts, double rightVolts) {
-    driveFL.setVoltage(leftVolts);
-    driveFR.setVoltage(-rightVolts);
-    driveBase.feed();
-  }
-  
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(driveFL.getSelectedSensorPosition() * ratio, driveFL.getSelectedSensorPosition() * ratio);
+    //m_odometry.update(Rotation2d.fromDegrees(getHeading()), driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
   }
 
   private WPI_TalonSRX talonSRXConstructor(int x){
@@ -95,7 +70,25 @@ public class DriveTrain extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    // TODO Auto-generated method stub
-    
   }
+
+
+
+  // public double getHeading() {
+  //   return Math.IEEEremainder(gyro.getAngle(), 360) * -1;
+  // }
+  
+  // public Pose2d getPose() {
+  //   return m_odometry.getPoseMeters();
+  // }
+
+  // public void tankDriveVolts(double leftVolts, double rightVolts) {
+  //   driveFL.setVoltage(leftVolts);
+  //   driveFR.setVoltage(-rightVolts);
+  //   driveBase.feed();
+  // }
+  
+  // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+  //   return new DifferentialDriveWheelSpeeds(driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
+  // }
 }

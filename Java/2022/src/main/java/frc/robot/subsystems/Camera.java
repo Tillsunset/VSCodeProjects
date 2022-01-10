@@ -7,30 +7,32 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Winch extends Subsystem {
-  public WPI_VictorSPX winchMotor = victorSPXConstructor(8);
-
-  public Winch() {
+public class Camera extends Subsystem {
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry ty = table.getEntry("ty");
+  
+  public Camera() {
+    /*
+     * Creates a new ExampleSubsystem.
+     */
   }
 
   @Override
   public void periodic() {
-  }
-
-  private WPI_VictorSPX victorSPXConstructor(int x){
-    WPI_VictorSPX temp = new WPI_VictorSPX(x);
-
-    temp.setNeutralMode(NeutralMode.Coast);
-
-    return temp;
+    // This method will be called once per scheduler run
   }
 
   @Override
   protected void initDefaultCommand() {
+    
+  }
+
+  public NetworkTableEntry getTy(){
+    return ty;
   }
 }
