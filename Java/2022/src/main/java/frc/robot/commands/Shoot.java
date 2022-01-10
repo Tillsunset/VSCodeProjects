@@ -11,22 +11,16 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command that uses an example subsystem.
  */
 public class Shoot extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final FlyWheel m_FlyWheel;
   private final Pneumatics m_Pneumatics;
 
-  double lastPosition;
-  double currentPosition;
-  double lastTime;
-  double currentTime;
-  double timeDifference;
   double distance;
   double actualVelocity;
   double desiredVelocity;
@@ -34,17 +28,15 @@ public class Shoot extends Command {
   double velocityDifference;
   double integral;
   double derivative;
-  double power;
   NetworkTableEntry ty;
 
   double kP;// tune these values
   double kI;
   double kD;
   double kF;
-  double cameraHeight = 3;//height from ground, ft
-  double cameraAngle = 15;//degrees
-  double targetHeight = 7.4792;//assume center of target, may be bottom edge, ft
-
+  double cameraHeight = 3/3.281;// height from ground, meter
+  double cameraAngle = 15;// degrees
+  double targetHeight = 7.4792/3.281;// assume center of target, may be bottom edge, meter
 
   /**
    * Creates a new ExampleCommand.
@@ -67,50 +59,37 @@ public class Shoot extends Command {
     m_FlyWheel.elevator.set(.5);
     integral = 0;
     velocityDifference = 0;
-    currentTime = Timer.getFPGATimestamp();
-    currentPosition = m_FlyWheel.driveF.getSelectedSensorPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {lastPosition = currentPosition;
-    currentPosition = m_FlyWheel.driveF.getSelectedSensorPosition();
-    lastTime = currentTime;
-    currentTime = Timer.getFPGATimestamp();
+  public void execute() {
+    distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0)) + cameraAngle); // distance in meter
+    desiredVelocity = ((.338 * distance + 23.93) * 150) / 60; // ((distance to projectile speed) to Wheel rpm) to sec
+    actualVelocity = (m_FlyWheel.getVel()) / (3 * 12); // change in position over ticks per wheel rev per sec
 
-    if ((currentPosition > lastPosition - 75) && //gets rid of noise
-        (currentPosition < lastPosition + 75)) {
-      timeDifference = currentTime - lastTime;
+    lastVelocityDifference = velocityDifference;
+    velocityDifference = desiredVelocity - actualVelocity;
+    derivative = (velocityDifference - lastVelocityDifference) / m_FlyWheel.getTimeDif();
 
-      distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0) + cameraAngle));//distance in feet
-      desiredVelocity = ((.338 * distance + 23.93) * 150) / 60;//((distance to projectile speed) to Wheel rpm) to sec
-      actualVelocity = (currentPosition - lastPosition)/(3 * 12 * timeDifference); //change in position over ticks per wheel rev per sec
-
-      lastVelocityDifference = velocityDifference;
-      velocityDifference = desiredVelocity - actualVelocity;
-      derivative = (velocityDifference - lastVelocityDifference) / (timeDifference);
-
-      if (integral < -10000) {// anti integral windup
-        integral = -10000;
-      } 
-      else if (integral > 10000) {
-        integral = 10000;
-      }
-      else {
-        integral += velocityDifference * timeDifference;
-      }
-
-      power = kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity;
+    if (integral < -10000) {// anti integral windup
+      integral = -10000;
+    } 
+    else if (integral > 10000) {
+      integral = 10000;
+    } 
+    else {
+      integral += velocityDifference * m_FlyWheel.getTimeDif();
     }
-            
-    m_FlyWheel.driveF.set(power);
+
+    m_FlyWheel.motorGroup.set(kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
+  public void end() {
     m_Pneumatics.c.enableDigital();
-    m_FlyWheel.driveF.set(0);
+    m_FlyWheel.motorGroup.set(0);
     m_FlyWheel.elevator.set(0);
   }
 

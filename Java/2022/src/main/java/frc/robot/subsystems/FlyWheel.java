@@ -13,22 +13,54 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 
 public class FlyWheel extends Subsystem {
-  public WPI_TalonSRX driveF = talonSRXConstructor(5);
-  public WPI_TalonSRX driveB = talonSRXConstructor(6);
+  private WPI_TalonSRX driveF = talonSRXConstructor(5);
+  private WPI_TalonSRX driveB = talonSRXConstructor(6);
   public WPI_VictorSPX elevator = victorSPXConstructor(8);
 
+  public MotorControllerGroup motorGroup = new MotorControllerGroup(driveF, driveB);
+
+  double lastTime;
+  double currentTime = Timer.getFPGATimestamp();
+  double timeDifference = 0;
+
+  double lastPos;
+  double currentPos = 0;
+  double posDif;
+  
+  double currentVel = 0;
 
   public FlyWheel() {
     driveF.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    driveB.follow(driveF);
+    driveF.setSelectedSensorPosition(currentPos);
   }
 
   @Override
   public void periodic() {
+    lastPos = currentPos;
+    currentPos = driveF.getSelectedSensorPosition();
+    posDif = currentPos - lastPos;
+
+    lastTime = currentTime;
+    currentTime = Timer.getFPGATimestamp();
+    timeDifference = currentTime - lastTime;
+
+    if ((Math.abs(posDif) < 75)&&
+        (timeDifference > 0.005)) {// does not include noise
+      currentVel = (posDif)/timeDifference;
+    }
   }
 
+  public double getVel(){
+    return currentVel;
+  }
+  
+  public double getTimeDif(){
+    return timeDifference;
+  }
 
   private WPI_TalonSRX talonSRXConstructor(int x) {
     WPI_TalonSRX temp = new WPI_TalonSRX(x);

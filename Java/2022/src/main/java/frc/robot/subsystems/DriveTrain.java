@@ -16,16 +16,9 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.kinematics.*;
+import edu.wpi.first.wpilibj.Timer;
 
 public class DriveTrain extends Subsystem {
-  // public static final double kaVoltSecondsSquaredPerMeter = 0;// tune these
-  // public static final double kvVoltSecondsPerMeter = 0;
-  // public static final double ksVolts = 0;
-  // public static final double kPDriveVel = 0;
-  // public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(1);// wheel base in meters
 
   public WPI_TalonSRX driveFR = talonSRXConstructor(1);
   public WPI_TalonSRX driveBR = talonSRXConstructor(2);
@@ -36,23 +29,70 @@ public class DriveTrain extends Subsystem {
   public MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
   public DifferentialDrive driveBase = new DifferentialDrive(left, right);
   
-  
-  double RATIO = 6*Math.PI*15/(1024*39.37*3*12);
+  double TicksToMeterRatio = 6*Math.PI*15/(1024*39.37*3*12);
 
-  private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-  // private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-  //     Rotation2d.fromDegrees(getHeading()));
+  double lastTime;
+  double currentTime = Timer.getFPGATimestamp();
+  double timeDifference;
+
+  double lastLeftPos;
+  double currentLeftPos = 0;
+  double leftPosDif;
+
+  double lastRightPos;
+  double currentRightPos = 0;
+  double rightPosDif;
+
+  double leftVel = 0;
+  double rightVel = 0;
+  
+  //private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   public DriveTrain() {
     driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    driveFR.setSelectedSensorPosition(currentRightPos);
     driveFL.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    driveFL.setSelectedSensorPosition(currentLeftPos);
 
-    gyro.calibrate();
+    right.setInverted(true);
+    left.setInverted(false);
+
+    //gyro.calibrate();
   }
 
   @Override
   public void periodic() {
+    lastTime = currentTime;
+    currentTime = Timer.getFPGATimestamp();
+    timeDifference = currentTime - lastTime;
+
+    lastLeftPos = currentLeftPos;
+    currentLeftPos = driveFL.getSelectedSensorPosition();
+    leftPosDif = currentLeftPos - lastLeftPos;
+
+    lastRightPos = currentRightPos;
+    currentRightPos = driveFR.getSelectedSensorPosition();
+    rightPosDif = currentRightPos - lastRightPos;
+    
+    if (timeDifference > 0.005){
+      if (Math.abs(leftPosDif) < 75){// does not include noise
+        leftVel = leftPosDif * TicksToMeterRatio / timeDifference;
+      }
+
+      if (Math.abs(rightPosDif) < 75) {// does not include noise
+        rightVel = rightPosDif * TicksToMeterRatio / timeDifference;
+      }
+    }
+
     //m_odometry.update(Rotation2d.fromDegrees(getHeading()), driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
+  }
+
+  public double getLeftVel(){
+    return leftVel;
+  }
+  
+  public double getRightVel(){
+    return rightVel;
   }
 
   private WPI_TalonSRX talonSRXConstructor(int x){
@@ -71,24 +111,4 @@ public class DriveTrain extends Subsystem {
   @Override
   protected void initDefaultCommand() {
   }
-
-
-
-  // public double getHeading() {
-  //   return Math.IEEEremainder(gyro.getAngle(), 360) * -1;
-  // }
-  
-  // public Pose2d getPose() {
-  //   return m_odometry.getPoseMeters();
-  // }
-
-  // public void tankDriveVolts(double leftVolts, double rightVolts) {
-  //   driveFL.setVoltage(leftVolts);
-  //   driveFR.setVoltage(-rightVolts);
-  //   driveBase.feed();
-  // }
-  
-  // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-  //   return new DifferentialDriveWheelSpeeds(driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
-  // }
 }

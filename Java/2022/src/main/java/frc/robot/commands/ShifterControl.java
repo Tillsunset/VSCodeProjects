@@ -43,13 +43,12 @@ public class ShifterControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(m_DriveTrain.getWheelSpeeds().leftMetersPerSecond) > 4 && 
-        Math.abs(m_DriveTrain.getWheelSpeeds().rightMetersPerSecond) > 4) {
+    if (Math.abs(m_DriveTrain.getLeftVel()) > 4 && 
+        Math.abs(m_DriveTrain.getRightVel()) > 4) {
       m_Pneumatics.shifters.set(Value.kReverse);
     } 
     else if ((m_PDP.getVoltage() < 8) || 
-             (Math.abs(m_DriveTrain.getWheelSpeeds().leftMetersPerSecond) < 4 && 
-              Math.abs(m_DriveTrain.getWheelSpeeds().rightMetersPerSecond) < 4) || 
+             (Math.abs(m_DriveTrain.getLeftVel()) < 4 && Math.abs(m_DriveTrain.getRightVel()) < 4) || 
              (m_DriveTrain.driveFL.getStatorCurrent() > 20 && m_DriveTrain.driveFR.getStatorCurrent() > 20)) {
       m_Pneumatics.shifters.set(Value.kForward);
     }

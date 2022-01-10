@@ -44,6 +44,7 @@ public class RobotContainer {
   private JoystickButton button4 = new JoystickButton(xbox, 4);
   private JoystickButton button5 = new JoystickButton(xbox, 5);
   private JoystickButton button6 = new JoystickButton(xbox, 6);
+  private JoystickButton button7 = new JoystickButton(xbox, 7);
 
   private final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_DriveTrain = new DriveTrain();
@@ -67,7 +68,7 @@ public class RobotContainer {
   private final Down m_Down = new Down(m_Winch);
   private final Up m_Up = new Up(m_Winch);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_ExampleSubsystem);
+  private final Test m_autoCommand = new Test(m_ExampleSubsystem);
 
   SendableChooser<String> autoChooser;
 
@@ -84,6 +85,7 @@ public class RobotContainer {
     button2.whileHeld(m_BallIn);
     button3.whileHeld(m_BallOut);
     button6.whileHeld(m_Up);
+    button7.whileHeld(m_Down);
     button4.whenPressed(m_IntakeIn);
     button5.whenPressed(m_IntakeOut);
 

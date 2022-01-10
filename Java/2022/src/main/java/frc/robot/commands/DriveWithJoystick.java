@@ -25,8 +25,8 @@ public class DriveWithJoystick extends Command {
    * @param subsystem The subsystem used by this command.
    */
   public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
-    xbox = x;
     m_DriveTrain = DriveTrain;
+    xbox = x;
     // Use requires() here to declare subsystem dependencies.
     requires(m_DriveTrain);
   }

@@ -12,13 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.*;
 
 public class Test extends Command {
-  private final FlyWheel m_FlyWheel;
+  private final ExampleSubsystem m_FlyWheel;
   Timer timer = new Timer();
   /**
    * Creates a new test.
    */
-  public Test(FlyWheel FlyWheel) {
-    m_FlyWheel = FlyWheel;
+  public Test(ExampleSubsystem ExampleSubsystem) {
+    m_FlyWheel = ExampleSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     requires(m_FlyWheel);
   }
@@ -26,7 +26,6 @@ public class Test extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_FlyWheel.start();
     timer.reset();
     timer.start();
   }
@@ -34,13 +33,11 @@ public class Test extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_FlyWheel.shoot();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end() {
-    m_FlyWheel.stop();
     timer.stop();
   }
 
