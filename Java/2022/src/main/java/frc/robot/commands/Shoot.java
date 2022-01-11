@@ -28,12 +28,14 @@ public class Shoot extends Command {
   double velocityDifference;
   double integral;
   double derivative;
+  double power;
   NetworkTableEntry ty;
 
   double kP;// tune these values
   double kI;
   double kD;
   double kF;
+  double integralLimit = 10000.0;
   double cameraHeight = 3/3.281;// height from ground, meter
   double cameraAngle = 15;// degrees
   double targetHeight = 7.4792/3.281;// assume center of target, may be bottom edge, meter
@@ -72,17 +74,29 @@ public class Shoot extends Command {
     velocityDifference = desiredVelocity - actualVelocity;
     derivative = (velocityDifference - lastVelocityDifference) / m_FlyWheel.getTimeDif();
 
-    if (integral < -10000) {// anti integral windup
-      integral = -10000;
-    } 
-    else if (integral > 10000) {
-      integral = 10000;
-    } 
-    else {
-      integral += velocityDifference * m_FlyWheel.getTimeDif();
+    if (Math.abs(power) < 1.0) {// anti integral windup
+      if (integral < -integralLimit) {
+        integral = -integralLimit;
+      }
+      else if (integral > integralLimit) {
+        integral = integralLimit;
+      }
+      else {
+        integral += velocityDifference * m_FlyWheel.getTimeDif();
+      }
     }
 
-    m_FlyWheel.motorGroup.set(kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity);
+    power = kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity;
+
+    if(power > 1.0) {
+      m_FlyWheel.motorGroup.set(1.0);
+    }
+    else if(power < -1.0) {
+      m_FlyWheel.motorGroup.set(-1.0);
+    }
+    else {
+      m_FlyWheel.motorGroup.set(power);
+    }
   }
 
   // Called once the command ends or is interrupted.
