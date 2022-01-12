@@ -7,10 +7,9 @@
 
 package frc.robot;
 
-import frc.robot.Commands.*;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /*
  * used for pathplanning, no longer maintained

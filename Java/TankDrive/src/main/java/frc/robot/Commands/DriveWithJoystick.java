@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.XboxController;
@@ -25,10 +25,10 @@ public class DriveWithJoystick extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
-    m_DriveTrain = DriveTrain;
-    xbox = x;
-    // Use requires() here to declare subsystem dependencies.
-    addRequirements(m_DriveTrain);
+	m_DriveTrain = DriveTrain;
+	xbox = x;
+	// Use requires() here to declare subsystem dependencies.
+	addRequirements(m_DriveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -39,7 +39,7 @@ public class DriveWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveTrain.driveBase.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
+	m_DriveTrain.driveBase.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +50,6 @@ public class DriveWithJoystick extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+	return false;
   }
 }

@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "Java\\TankDrive"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.server.launchMode": "Standard"
+	}
+}
