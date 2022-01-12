@@ -12,11 +12,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 
-public class FlyWheel extends Subsystem {
+public class FlyWheel extends SubsystemBase {
   private WPI_TalonSRX driveF = talonSRXConstructor(5);
   private WPI_TalonSRX driveB = talonSRXConstructor(6);
   public WPI_VictorSPX elevator = victorSPXConstructor(8);
@@ -76,9 +76,5 @@ public class FlyWheel extends Subsystem {
     temp.setNeutralMode(NeutralMode.Coast);
 
     return temp;
-  }
-
-  @Override
-  protected void initDefaultCommand() {
   }
 }

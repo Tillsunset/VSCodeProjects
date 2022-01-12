@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Index extends Subsystem {
+public class Index extends SubsystemBase {
   public WPI_VictorSPX index = victorSPXConstructor(8);
 
   public Index() {
@@ -28,10 +28,5 @@ public class Index extends Subsystem {
     temp.setNeutralMode(NeutralMode.Coast);
 
     return temp;
-  }
-
-  @Override
-  protected void initDefaultCommand() {
-    
   }
 }

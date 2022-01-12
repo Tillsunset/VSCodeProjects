@@ -8,10 +8,10 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class Test extends Command {
+public class Test extends CommandBase {
   private final ExampleSubsystem m_FlyWheel;
   Timer timer = new Timer();
   /**
@@ -20,7 +20,7 @@ public class Test extends Command {
   public Test(ExampleSubsystem ExampleSubsystem) {
     m_FlyWheel = ExampleSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    requires(m_FlyWheel);
+    addRequirements(m_FlyWheel);
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ public class Test extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end() {
+  public void end(boolean interrupted) {
     timer.stop();
   }
 

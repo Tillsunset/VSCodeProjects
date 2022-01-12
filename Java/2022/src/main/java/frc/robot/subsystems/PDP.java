@@ -9,9 +9,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class PDP extends Subsystem {
+public class PDP extends SubsystemBase {
   private PowerDistribution powerDistribution = new PowerDistribution(0, ModuleType.kCTRE);
   
   public PDP() {
@@ -27,10 +27,5 @@ public class PDP extends Subsystem {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  @Override
-  protected void initDefaultCommand() {
-    
   }
 }

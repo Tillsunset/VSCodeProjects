@@ -11,9 +11,9 @@ import frc.robot.commands.*;
 import frc.robot.commands.auto.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /*
  * used for pathplanning, no longer maintained
@@ -100,9 +100,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
 
-  public CommandGroup getAutonomousCommand() {
-    CommandGroup temp = new CommandGroup();
-    temp.addSequential(m_autoCommand);
+  public SequentialCommandGroup getAutonomousCommand() {
+    SequentialCommandGroup temp = new SequentialCommandGroup();
+    temp.addCommands(m_autoCommand);
     return temp;
   }
 

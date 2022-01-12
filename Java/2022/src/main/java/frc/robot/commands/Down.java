@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Winch;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class Down extends Command {
+public class Down extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Winch m_Winch;
 
@@ -25,7 +25,7 @@ public class Down extends Command {
   public Down(Winch Winch) {
     m_Winch = Winch;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_Winch);
+    addRequirements(m_Winch);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class Down extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
+  public void end(boolean interrupted) {
     m_Winch.winchMotor.set(0);
   }
 

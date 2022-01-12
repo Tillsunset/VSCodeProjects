@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ExampleCommand extends Command {
+public class ExampleCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ExampleSubsystem m_subsystem;
 
@@ -25,7 +25,7 @@ public class ExampleCommand extends Command {
   public ExampleCommand(ExampleSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +40,7 @@ public class ExampleCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.

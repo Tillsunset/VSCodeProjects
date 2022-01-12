@@ -11,12 +11,12 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class Shoot extends Command {
+public class Shoot extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final FlyWheel m_FlyWheel;
   private final Pneumatics m_Pneumatics;
@@ -50,8 +50,8 @@ public class Shoot extends Command {
     m_Pneumatics = Pneumatics;
     ty = Camera.getTy();
     // Use requires() here to declare subsystem dependencies.
-    requires(m_FlyWheel);
-    requires(m_Pneumatics);
+    addRequirements(m_FlyWheel);
+    addRequirements(m_Pneumatics);
   }
 
   // Called when the command is initially scheduled.
@@ -101,7 +101,7 @@ public class Shoot extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end() {
+  public void end(boolean interrupted) {
     m_Pneumatics.c.enableDigital();
     m_FlyWheel.motorGroup.set(0);
     m_FlyWheel.elevator.set(0);

@@ -9,12 +9,12 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class IntakeIn extends Command {
+public class IntakeIn extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_Pneumatics;
 
@@ -26,7 +26,7 @@ public class IntakeIn extends Command {
   public IntakeIn(Pneumatics Pneumatics) {
     m_Pneumatics = Pneumatics;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_Pneumatics);
+    addRequirements(m_Pneumatics);
   }
 
   // Called when the command is initially scheduled.
@@ -42,7 +42,7 @@ public class IntakeIn extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.

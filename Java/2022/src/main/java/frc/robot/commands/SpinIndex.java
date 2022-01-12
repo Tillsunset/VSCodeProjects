@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Index;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class SpinIndex extends Command {
+public class SpinIndex extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Index m_Index;
 
@@ -25,7 +25,7 @@ public class SpinIndex extends Command {
   public SpinIndex(Index Index) {
     m_Index = Index;
     // Use requires() here to declare subsystem dependencies.
-    requires(m_Index);
+    addRequirements(m_Index);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class SpinIndex extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end( ) {
+  public void end(boolean interrupted) {
     m_Index.index.set(0);
   }
 

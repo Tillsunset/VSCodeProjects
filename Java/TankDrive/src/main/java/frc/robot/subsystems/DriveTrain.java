@@ -28,25 +28,7 @@ public class DriveTrain extends SubsystemBase {
   public MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
   public MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
   public DifferentialDrive driveBase = new DifferentialDrive(left, right);
-  
-  double TicksToMeterRatio = 6*Math.PI*15/(1024*39.37*3*12);
 
-  double lastTime;
-  double currentTime = Timer.getFPGATimestamp();
-  double timeDifference;
-
-  double lastLeftPos;
-  double currentLeftPos = 0;
-  double leftPosDif;
-
-  double lastRightPos;
-  double currentRightPos = 0;
-  double rightPosDif;
-
-  double leftVel = 0;
-  double rightVel = 0;
-  
-  //private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   public DriveTrain() {
     driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -56,43 +38,10 @@ public class DriveTrain extends SubsystemBase {
 
     right.setInverted(true);
     left.setInverted(false);
-
-    //gyro.calibrate();
   }
 
   @Override
   public void periodic() {
-    lastTime = currentTime;
-    currentTime = Timer.getFPGATimestamp();
-    timeDifference = currentTime - lastTime;
-
-    lastLeftPos = currentLeftPos;
-    currentLeftPos = driveFL.getSelectedSensorPosition();
-    leftPosDif = currentLeftPos - lastLeftPos;
-
-    lastRightPos = currentRightPos;
-    currentRightPos = driveFR.getSelectedSensorPosition();
-    rightPosDif = currentRightPos - lastRightPos;
-    
-    if (timeDifference > 0.005){
-      if (Math.abs(leftPosDif) < 75){// does not include noise
-        leftVel = leftPosDif * TicksToMeterRatio / timeDifference;
-      }
-
-      if (Math.abs(rightPosDif) < 75) {// does not include noise
-        rightVel = rightPosDif * TicksToMeterRatio / timeDifference;
-      }
-    }
-
-    //m_odometry.update(Rotation2d.fromDegrees(getHeading()), driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
-  }
-
-  public double getLeftVel(){
-    return leftVel;
-  }
-  
-  public double getRightVel(){
-    return rightVel;
   }
 
   private WPI_TalonSRX talonSRXConstructor(int x){

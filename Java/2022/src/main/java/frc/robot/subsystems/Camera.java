@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Camera extends Subsystem {
+public class Camera extends SubsystemBase {
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry ty = table.getEntry("ty");
   
@@ -25,11 +25,6 @@ public class Camera extends Subsystem {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  @Override
-  protected void initDefaultCommand() {
-    
   }
 
   public NetworkTableEntry getTy(){

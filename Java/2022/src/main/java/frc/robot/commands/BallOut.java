@@ -10,12 +10,12 @@ package frc.robot.commands;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class BallOut extends Command {
+public class BallOut extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_Intake;
   private final Pneumatics m_Pneumatics;
@@ -29,8 +29,8 @@ public class BallOut extends Command {
     m_Intake = Intake;
     m_Pneumatics = Pneumatics;
     // Use addRequirements() here to declare subsystem dependencies.
-    requires(m_Intake);
-    requires(m_Pneumatics);
+    addRequirements(m_Intake);
+    addRequirements(m_Pneumatics);
   }
 
   // Called when the command is initially scheduled.
@@ -47,7 +47,7 @@ public class BallOut extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end() {
+  public void end(boolean interrupted) {
     m_Intake.intakeMotor.set(0);
   }
 
