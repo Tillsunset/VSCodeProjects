@@ -21,8 +21,15 @@ public class Robot extends TimedRobot {
   private CommandGroupBase m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
+  private double period = 0.010; // 10 ms period between robotcs periodic cycles
+  // period between which the cpu cycles through the code, dangerous if you change 
+  // the value too much, default is .02, check roborio cpu % in driverstation logs
+  private double secondaryPeriod = 0.010;
+  private double offsetPeriod = 0.005;
+  private void func(){}
+
   public Robot() {
-    super(.01);// period between which the cpu cycles through the code, dangerous if you change the value too much, default is .02, check roborio cpu % in driverstation logs
+    super(period);
   }
 
   /**
@@ -34,6 +41,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    CommandScheduler.getInstance().setPeriod(period); // should use same period as robot period
+    addPeriodic(() -> {
+      func();
+    }, secondaryPeriod, offsetPeriod); // add secondary loop for additioanl processing outside of main loop
   }
 
   /**

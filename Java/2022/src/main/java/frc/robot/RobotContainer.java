@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-/*
- * used for pathplanning, no longer maintained
- */
+/*******************************************************************
+ *********** used for pathplanning, no longer maintained ***********
+ *******************************************************************/
 // import java.io.IOException;
 // import java.nio.file.Path;
 // import edu.wpi.first.wpilibj.DriverStation;
@@ -92,6 +92,9 @@ public class RobotContainer {
     m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
     m_Pneumatics.setDefaultCommand(m_ShifterControl);
     m_PDP.setDefaultCommand(m_CompressorControl);
+
+    m_DriveTrain.register();
+    m_FlyWheel.register();
   }
 
   /**
@@ -106,9 +109,9 @@ public class RobotContainer {
     return temp;
   }
 
-  /*****************
-   * Old pathplanning auto in 2020, no longer maintained
-   ****************/
+  /*******************************************************************
+   ******* Old pathplanning auto in 2020, no longer maintained *******
+   *******************************************************************/
   // public CommandGroup getAutonomousCommand() {
 
   //   // An example trajectory to follow. All units in meter.
