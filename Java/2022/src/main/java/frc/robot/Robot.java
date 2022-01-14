@@ -23,7 +23,6 @@ public class Robot extends TimedRobot {
 
   private double secondaryPeriod = 0.010;
   private double offsetPeriod = 0.005;
-  private void function(){}
 
   public Robot() {
     super(0.010); // 10 ms period between robotcs periodic cycles
@@ -42,7 +41,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     CommandScheduler.getInstance().setPeriod(getPeriod()); // should use same period as robot period
     addPeriodic(() -> {
-      function();
+      m_robotContainer.m_FlyWheel.periodic();
+      m_robotContainer.m_DriveTrain.periodic();
     }, secondaryPeriod, offsetPeriod); // add secondary loop for additioanl processing outside of main loop
   }
 

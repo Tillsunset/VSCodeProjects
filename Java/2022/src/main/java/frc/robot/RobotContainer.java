@@ -46,31 +46,31 @@ public class RobotContainer {
   private JoystickButton button6 = new JoystickButton(xbox, 6);
   private JoystickButton button7 = new JoystickButton(xbox, 7);
 
-  private final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
-  private final DriveTrain m_DriveTrain = new DriveTrain();
-  private final Pneumatics m_Pneumatics = new Pneumatics();
-  private final FlyWheel m_FlyWheel = new FlyWheel();
-  private final Camera m_Camera = new Camera();
-  private final Intake m_Intake = new Intake();
-  private final Winch m_Winch = new Winch();
-  private final Index m_Index = new Index();
-  private final PDP m_PDP = new PDP();
+  protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
+  protected final Pneumatics m_Pneumatics = new Pneumatics();
+  protected final DriveTrain m_DriveTrain = new DriveTrain();
+  protected final FlyWheel m_FlyWheel = new FlyWheel();
+  protected final Camera m_Camera = new Camera();
+  protected final Intake m_Intake = new Intake();
+  protected final Winch m_Winch = new Winch();
+  protected final Index m_Index = new Index();
+  protected final PDP m_PDP = new PDP();
 
-  private final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-  private final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
-  private final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
-  private final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
-  private final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
-  private final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
-  private final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
-  private final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
-  private final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
-  private final Down m_Down = new Down(m_Winch);
-  private final Up m_Up = new Up(m_Winch);
+  protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
+  protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+  protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
+  protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
+  protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
+  protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
+  protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
+  protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
+  protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
+  protected final Down m_Down = new Down(m_Winch);
+  protected final Up m_Up = new Up(m_Winch);
 
-  private final Test m_autoCommand = new Test(m_ExampleSubsystem);
+  protected final Test m_autoCommand = new Test(m_ExampleSubsystem);
 
-  SendableChooser<String> autoChooser;
+  private SendableChooser<String> autoChooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

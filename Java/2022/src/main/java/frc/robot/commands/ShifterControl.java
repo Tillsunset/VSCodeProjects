@@ -49,7 +49,7 @@ public class ShifterControl extends CommandBase {
     } 
     else if ((m_PDP.getVoltage() < 8) || 
              (Math.abs(m_DriveTrain.getLeftVel()) < 4 && Math.abs(m_DriveTrain.getRightVel()) < 4) || 
-             (m_DriveTrain.driveFL.getStatorCurrent() > 20 && m_DriveTrain.driveFR.getStatorCurrent() > 20)) {
+             (m_DriveTrain.getTotalCurrent() > 60)) {
       m_Pneumatics.shifters.set(Value.kForward);
     }
   }

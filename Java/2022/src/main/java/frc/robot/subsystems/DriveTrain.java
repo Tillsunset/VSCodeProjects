@@ -20,13 +20,14 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DriveTrain extends SubsystemBase {
 
-  public WPI_TalonSRX driveFR = talonSRXConstructor(1);
-  public WPI_TalonSRX driveBR = talonSRXConstructor(2);
-  public WPI_TalonSRX driveFL = talonSRXConstructor(3);
-  public WPI_TalonSRX driveBL = talonSRXConstructor(4);
+  private WPI_TalonSRX driveFR = talonSRXConstructor(1);
+  private WPI_TalonSRX driveBR = talonSRXConstructor(2);
+  private WPI_TalonSRX driveFL = talonSRXConstructor(3);
+  private WPI_TalonSRX driveBL = talonSRXConstructor(4);
 
-  public MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
-  public MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
+  private MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
+  private MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
+
   public DifferentialDrive driveBase = new DifferentialDrive(left, right);
   
   double TicksToMeterRatio = 6*Math.PI*15/(1024*39.37*3*12);
@@ -93,6 +94,11 @@ public class DriveTrain extends SubsystemBase {
   
   public double getRightVel(){
     return rightVel;
+  }
+
+  public double getTotalCurrent(){
+    return driveFL.getStatorCurrent() + driveFR.getStatorCurrent() +
+           driveBL.getStatorCurrent() + driveBR.getStatorCurrent();
   }
 
   private WPI_TalonSRX talonSRXConstructor(int x){
