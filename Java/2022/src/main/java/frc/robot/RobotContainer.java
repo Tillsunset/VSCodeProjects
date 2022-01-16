@@ -79,6 +79,17 @@ public class RobotContainer {
     autoChooser.setDefaultOption("turn left", "path 1");
     autoChooser.addOption("turn left while shoot", "path 2");
 
+    m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
+    m_Pneumatics.setDefaultCommand(m_ShifterControl);
+    m_PDP.setDefaultCommand(m_CompressorControl);
+
+    m_DriveTrain.register();
+    m_FlyWheel.register();
+
+    configureButtonBindings();
+  }
+
+  private void configureButtonBindings() {
     // Configure the button bindings
     button1.whileHeld(m_Shoot);
     button1.whileHeld(m_SpinIndex);
@@ -88,13 +99,6 @@ public class RobotContainer {
     button7.whileHeld(m_Down);
     button4.whenPressed(m_IntakeIn);
     button5.whenPressed(m_IntakeOut);
-
-    m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
-    m_Pneumatics.setDefaultCommand(m_ShifterControl);
-    m_PDP.setDefaultCommand(m_CompressorControl);
-
-    m_DriveTrain.register();
-    m_FlyWheel.register();
   }
 
   /**
