@@ -13,21 +13,21 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry ty = table.getEntry("ty");
-  
-  public Camera() {
-    /*
-     * Creates a new ExampleSubsystem.
-     */
-  }
+	NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+	NetworkTableEntry ty = table.getEntry("ty");
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	public Camera() {
+		/*
+		 * Creates a new ExampleSubsystem.
+		 */
+	}
 
-  public NetworkTableEntry getTy(){
-    return ty;
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
+
+	public NetworkTableEntry getTy() {
+		return ty;
+	}
 }

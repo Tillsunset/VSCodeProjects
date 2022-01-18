@@ -37,154 +37,155 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
 
-  private XboxController xbox = new XboxController(0);
-  private JoystickButton button1 = new JoystickButton(xbox, 1);
-  private JoystickButton button2 = new JoystickButton(xbox, 2);
-  private JoystickButton button3 = new JoystickButton(xbox, 3);
-  private JoystickButton button4 = new JoystickButton(xbox, 4);
-  private JoystickButton button5 = new JoystickButton(xbox, 5);
-  private JoystickButton button6 = new JoystickButton(xbox, 6);
-  private JoystickButton button7 = new JoystickButton(xbox, 7);
+	private XboxController xbox = new XboxController(0);
+	private JoystickButton button1 = new JoystickButton(xbox, 1);
+	private JoystickButton button2 = new JoystickButton(xbox, 2);
+	private JoystickButton button3 = new JoystickButton(xbox, 3);
+	private JoystickButton button4 = new JoystickButton(xbox, 4);
+	private JoystickButton button5 = new JoystickButton(xbox, 5);
+	private JoystickButton button6 = new JoystickButton(xbox, 6);
+	private JoystickButton button7 = new JoystickButton(xbox, 7);
 
-  protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
-  protected final Pneumatics m_Pneumatics = new Pneumatics();
-  protected final DriveTrain m_DriveTrain = new DriveTrain();
-  protected final FlyWheel m_FlyWheel = new FlyWheel();
-  protected final Camera m_Camera = new Camera();
-  protected final Intake m_Intake = new Intake();
-  protected final Winch m_Winch = new Winch();
-  protected final Index m_Index = new Index();
-  protected final PDP m_PDP = new PDP();
+	protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
+	protected final Pneumatics m_Pneumatics = new Pneumatics();
+	protected final DriveTrain m_DriveTrain = new DriveTrain();
+	protected final FlyWheel m_FlyWheel = new FlyWheel();
+	protected final Camera m_Camera = new Camera();
+	protected final Intake m_Intake = new Intake();
+	protected final Winch m_Winch = new Winch();
+	protected final Index m_Index = new Index();
+	protected final PDP m_PDP = new PDP();
 
-  protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-  protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
-  protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
-  protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
-  protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
-  protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
-  protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
-  protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
-  protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
-  protected final Down m_Down = new Down(m_Winch);
-  protected final Up m_Up = new Up(m_Winch);
+	protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
+	protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+	protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
+	protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
+	protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
+	protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
+	protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
+	protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
+	protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
+	protected final Down m_Down = new Down(m_Winch);
+	protected final Up m_Up = new Up(m_Winch);
 
-  protected final Test m_autoCommand = new Test(m_ExampleSubsystem);
+	protected final Test m_autoCommand = new Test(m_ExampleSubsystem);
 
-  private SendableChooser<String> autoChooser;
+	private SendableChooser<String> autoChooser;
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    autoChooser.setDefaultOption("turn left", "path 1");
-    autoChooser.addOption("turn left while shoot", "path 2");
+	/**
+	 * The container for the robot. Contains subsystems, OI devices, and commands.
+	 */
+	public RobotContainer() {
+		autoChooser.setDefaultOption("turn left", "path 1");
+		autoChooser.addOption("turn left while shoot", "path 2");
 
-    m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
-    m_Pneumatics.setDefaultCommand(m_ShifterControl);
-    m_PDP.setDefaultCommand(m_CompressorControl);
+		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
+		m_Pneumatics.setDefaultCommand(m_ShifterControl);
+		m_PDP.setDefaultCommand(m_CompressorControl);
 
-    m_DriveTrain.register();
-    m_FlyWheel.register();
+		m_DriveTrain.register();
+		m_FlyWheel.register();
 
-    configureButtonBindings();
-  }
+		configureButtonBindings();
+	}
 
-  private void configureButtonBindings() {
-    // Configure the button bindings
-    button1.whileHeld(m_Shoot);
-    button1.whileHeld(m_SpinIndex);
-    button2.whileHeld(m_BallIn);
-    button3.whileHeld(m_BallOut);
-    button6.whileHeld(m_Up);
-    button7.whileHeld(m_Down);
-    button4.whenPressed(m_IntakeIn);
-    button5.whenPressed(m_IntakeOut);
-  }
+	private void configureButtonBindings() {
+		// Configure the button bindings
+		button1.whileHeld(m_Shoot);
+		button1.whileHeld(m_SpinIndex);
+		button2.whileHeld(m_BallIn);
+		button3.whileHeld(m_BallOut);
+		button6.whileHeld(m_Up);
+		button7.whileHeld(m_Down);
+		button4.whenPressed(m_IntakeIn);
+		button5.whenPressed(m_IntakeOut);
+	}
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
 
-  public SequentialCommandGroup getAutonomousCommand() {
-    SequentialCommandGroup temp = new SequentialCommandGroup();
-    temp.addCommands(m_autoCommand);
-    return temp;
-  }
+	public SequentialCommandGroup getAutonomousCommand() {
+		SequentialCommandGroup temp = new SequentialCommandGroup();
+		temp.addCommands(m_autoCommand);
+		return temp;
+	}
 
-  /*******************************************************************
-   ******* Old pathplanning auto in 2020, no longer maintained *******
-   *******************************************************************/
-  // public CommandGroup getAutonomousCommand() {
+	/*******************************************************************
+	 ******* Old pathplanning auto in 2020, no longer maintained *******
+	 *******************************************************************/
+	// public CommandGroup getAutonomousCommand() {
 
-  //   // An example trajectory to follow. All units in meter.
-  //   //String trajectoryJSON = "output/YourPath.wpilib.json";
+	// // An example trajectory to follow. All units in meter.
+	// //String trajectoryJSON = "output/YourPath.wpilib.json";
 
-  //   String path1Part1 = "output/path1Part1.wpilib.json";
-  //   String path1Part2 = "output/path1Part2.wpilib.json";
-  //   String unnamed = "output/unnamed.wpilib.json";
+	// String path1Part1 = "output/path1Part1.wpilib.json";
+	// String path1Part2 = "output/path1Part2.wpilib.json";
+	// String unnamed = "output/unnamed.wpilib.json";
 
-  //   try {
-  //     switch(autoChooser.getSelected()) {
-  //       case "path 1": {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-  //         CommandGroup temp;
-  //         temp.addSequential(part1);
+	// try {
+	// switch(autoChooser.getSelected()) {
+	// case "path 1": {
+	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+	// CommandGroup temp;
+	// temp.addSequential(part1);
 
-  //         return new CommandGroup(
-  //           m_Test,
-  //           part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
-  //       }
+	// return new CommandGroup(
+	// m_Test,
+	// part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
+	// }
 
-  //       case "path 2": {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-  //         RamseteCommand part3 = simplfyRamseteCommand(unnamed);
+	// case "path 2": {
+	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+	// RamseteCommand part3 = simplfyRamseteCommand(unnamed);
 
-  //         return new CommandGroup(
-  //           part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
-  //           new ParallelCommandGroup(
-  //             m_Test,
-  //             part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0))),
-  //           part3.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
-  //       }
+	// return new CommandGroup(
+	// part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
+	// new ParallelCommandGroup(
+	// m_Test,
+	// part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0))),
+	// part3.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
+	// }
 
-  //       default: {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         CommandGroup temp;
-  //         temp.addSequential(part1);
+	// default: {
+	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// CommandGroup temp;
+	// temp.addSequential(part1);
 
-  //         return temp;
-  //       }
-  //     }
-  //   } 
-  //   catch (IOException ex) {
-  //     DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-  //     CommandGroup temp;
-  //     temp.addSequential(m_autoCommand);
+	// return temp;
+	// }
+	// }
+	// }
+	// catch (IOException ex) {
+	// DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+	// CommandGroup temp;
+	// temp.addSequential(m_autoCommand);
 
-  //     return temp;
-  //   }
-  // }
+	// return temp;
+	// }
+	// }
 
-  // public RamseteCommand simplfyRamseteCommand (String path) throws IOException {
-  //   Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
-  //   Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+	// public RamseteCommand simplfyRamseteCommand (String path) throws IOException
+	// {
+	// Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
+	// Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
 
-  //   return new RamseteCommand(
-  //     trajectory,
-  //     m_DriveTrain::getPose,
-  //     new RamseteController(2.0, .7),
-  //     new SimpleMotorFeedforward( DriveTrain.ksVolts,
-  //                                 DriveTrain.kvVoltSecondsPerMeter,
-  //                                 DriveTrain.kaVoltSecondsSquaredPerMeter),
-  //     DriveTrain.kDriveKinematics, 
-  //     m_DriveTrain::getWheelSpeeds,
-  //     new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-  //     new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-  //     m_DriveTrain::tankDriveVolts,
-  //     m_DriveTrain);
-  // }
+	// return new RamseteCommand(
+	// trajectory,
+	// m_DriveTrain::getPose,
+	// new RamseteController(2.0, .7),
+	// new SimpleMotorFeedforward( DriveTrain.ksVolts,
+	// DriveTrain.kvVoltSecondsPerMeter,
+	// DriveTrain.kaVoltSecondsSquaredPerMeter),
+	// DriveTrain.kDriveKinematics,
+	// m_DriveTrain::getWheelSpeeds,
+	// new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
+	// new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
+	// m_DriveTrain::tankDriveVolts,
+	// m_DriveTrain);
+	// }
 }

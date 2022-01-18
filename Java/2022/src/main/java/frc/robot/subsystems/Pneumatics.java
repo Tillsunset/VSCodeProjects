@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
-  public Compressor c = new Compressor(0, PneumaticsModuleType.CTREPCM);
+	public Compressor c = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
-  public DoubleSolenoid intake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-  public DoubleSolenoid shifters = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
+	public DoubleSolenoid intake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+	public DoubleSolenoid shifters = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
 
-  public Pneumatics() {
-  }
-  
-  @Override
-  public void periodic() {
-  }
+	public Pneumatics() {
+	}
+
+	@Override
+	public void periodic() {
+	}
 }

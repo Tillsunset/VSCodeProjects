@@ -20,97 +20,99 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DriveTrain extends SubsystemBase {
 
-  private WPI_TalonSRX driveFR = talonSRXConstructor(1);
-  private WPI_TalonSRX driveBR = talonSRXConstructor(2);
-  private WPI_TalonSRX driveFL = talonSRXConstructor(3);
-  private WPI_TalonSRX driveBL = talonSRXConstructor(4);
+	private WPI_TalonSRX driveFR = talonSRXConstructor(1);
+	private WPI_TalonSRX driveBR = talonSRXConstructor(2);
+	private WPI_TalonSRX driveFL = talonSRXConstructor(3);
+	private WPI_TalonSRX driveBL = talonSRXConstructor(4);
 
-  private MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
-  private MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
+	private MotorControllerGroup left = new MotorControllerGroup(driveFL, driveBL);
+	private MotorControllerGroup right = new MotorControllerGroup(driveFR, driveBR);
 
-  public DifferentialDrive driveBase = new DifferentialDrive(left, right);
-  
-  double TicksToMeterRatio = 6*Math.PI*15/(1024*39.37*3*12);
+	public DifferentialDrive driveBase = new DifferentialDrive(left, right);
 
-  double lastTime;
-  double currentTime = Timer.getFPGATimestamp();
-  double timeDifference;
+	double TicksToMeterRatio = 6 * Math.PI * 15 / (1024 * 39.37 * 3 * 12);
 
-  double lastLeftPos;
-  double currentLeftPos = 0;
-  double leftPosDif;
+	double lastTime;
+	double currentTime = Timer.getFPGATimestamp();
+	double timeDifference;
 
-  double lastRightPos;
-  double currentRightPos = 0;
-  double rightPosDif;
+	double lastLeftPos;
+	double currentLeftPos = 0;
+	double leftPosDif;
 
-  double leftVel = 0;
-  double rightVel = 0;
-  
-  //private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+	double lastRightPos;
+	double currentRightPos = 0;
+	double rightPosDif;
 
-  public DriveTrain() {
-    driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    driveFR.setSelectedSensorPosition(currentRightPos);
-    driveFL.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    driveFL.setSelectedSensorPosition(currentLeftPos);
+	double leftVel = 0;
+	double rightVel = 0;
 
-    right.setInverted(true);
-    left.setInverted(false);
+	// private ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
-    //gyro.calibrate();
-  }
+	public DriveTrain() {
+		driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		driveFR.setSelectedSensorPosition(currentRightPos);
+		driveFL.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		driveFL.setSelectedSensorPosition(currentLeftPos);
 
-  @Override
-  public void periodic() {
-    lastTime = currentTime;
-    currentTime = Timer.getFPGATimestamp();
-    timeDifference = currentTime - lastTime;
+		right.setInverted(true);
+		left.setInverted(false);
 
-    lastLeftPos = currentLeftPos;
-    currentLeftPos = driveFL.getSelectedSensorPosition();
-    leftPosDif = currentLeftPos - lastLeftPos;
+		// gyro.calibrate();
+	}
 
-    lastRightPos = currentRightPos;
-    currentRightPos = driveFR.getSelectedSensorPosition();
-    rightPosDif = currentRightPos - lastRightPos;
-    
-    if (timeDifference > 0.005){
-      if (Math.abs(leftPosDif) < 75){// does not include noise
-        leftVel = leftPosDif * TicksToMeterRatio / timeDifference;
-      }
+	@Override
+	public void periodic() {
+		lastTime = currentTime;
+		currentTime = Timer.getFPGATimestamp();
+		timeDifference = currentTime - lastTime;
 
-      if (Math.abs(rightPosDif) < 75) {// does not include noise
-        rightVel = rightPosDif * TicksToMeterRatio / timeDifference;
-      }
-    }
+		lastLeftPos = currentLeftPos;
+		currentLeftPos = driveFL.getSelectedSensorPosition();
+		leftPosDif = currentLeftPos - lastLeftPos;
 
-    //m_odometry.update(Rotation2d.fromDegrees(getHeading()), driveFL.getSelectedSensorPosition() * RATIO, driveFL.getSelectedSensorPosition() * RATIO);
-  }
+		lastRightPos = currentRightPos;
+		currentRightPos = driveFR.getSelectedSensorPosition();
+		rightPosDif = currentRightPos - lastRightPos;
 
-  public double getLeftVel(){
-    return leftVel;
-  }
-  
-  public double getRightVel(){
-    return rightVel;
-  }
+		if (timeDifference > 0.005) {
+			if (Math.abs(leftPosDif) < 75) {// does not include noise
+				leftVel = leftPosDif * TicksToMeterRatio / timeDifference;
+			}
 
-  public double getTotalCurrent(){
-    return driveFL.getStatorCurrent() + driveFR.getStatorCurrent() +
-           driveBL.getStatorCurrent() + driveBR.getStatorCurrent();
-  }
+			if (Math.abs(rightPosDif) < 75) {// does not include noise
+				rightVel = rightPosDif * TicksToMeterRatio / timeDifference;
+			}
+		}
 
-  private WPI_TalonSRX talonSRXConstructor(int x){
-    WPI_TalonSRX temp = new WPI_TalonSRX(x);
+		// m_odometry.update(Rotation2d.fromDegrees(getHeading()),
+		// driveFL.getSelectedSensorPosition() * RATIO,
+		// driveFL.getSelectedSensorPosition() * RATIO);
+	}
 
-    temp.configContinuousCurrentLimit(40);//used standard play
-    temp.configPeakCurrentLimit(44, 1000);//used for pushing, limit for stopping wheel spin
-    temp.enableCurrentLimit(true);
-    temp.configOpenloopRamp(.25);//fine tune for best responsiveness
-    temp.configClosedloopRamp(0);//used for driving by encoders
-    temp.setNeutralMode(NeutralMode.Brake);
+	public double getLeftVel() {
+		return leftVel;
+	}
 
-    return temp;
-  }
+	public double getRightVel() {
+		return rightVel;
+	}
+
+	public double getTotalCurrent() {
+		return driveFL.getStatorCurrent() + driveFR.getStatorCurrent() +
+				driveBL.getStatorCurrent() + driveBR.getStatorCurrent();
+	}
+
+	private WPI_TalonSRX talonSRXConstructor(int x) {
+		WPI_TalonSRX temp = new WPI_TalonSRX(x);
+
+		temp.configContinuousCurrentLimit(40);// used standard play
+		temp.configPeakCurrentLimit(44, 1000);// used for pushing, limit for stopping wheel spin
+		temp.enableCurrentLimit(true);
+		temp.configOpenloopRamp(.25);// fine tune for best responsiveness
+		temp.configClosedloopRamp(0);// used for driving by encoders
+		temp.setNeutralMode(NeutralMode.Brake);
+
+		return temp;
+	}
 }

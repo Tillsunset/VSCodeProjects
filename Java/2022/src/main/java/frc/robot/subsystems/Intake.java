@@ -13,20 +13,20 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  public WPI_VictorSPX intakeMotor = victorSPXConstructor(7);
+	public WPI_VictorSPX intakeMotor = victorSPXConstructor(7);
 
-  public Intake() {
-  }
+	public Intake() {
+	}
 
-  @Override
-  public void periodic() {
-  }
+	@Override
+	public void periodic() {
+	}
 
-  private WPI_VictorSPX victorSPXConstructor(int x){
-    WPI_VictorSPX temp = new WPI_VictorSPX(x);
+	private WPI_VictorSPX victorSPXConstructor(int x) {
+		WPI_VictorSPX temp = new WPI_VictorSPX(x);
 
-    temp.setNeutralMode(NeutralMode.Coast);
+		temp.setNeutralMode(NeutralMode.Coast);
 
-    return temp;
-  }
+		return temp;
+	}
 }
