@@ -118,74 +118,72 @@ public class RobotContainer {
 	 *******************************************************************/
 	// public CommandGroup getAutonomousCommand() {
 
-	// // An example trajectory to follow. All units in meter.
-	// //String trajectoryJSON = "output/YourPath.wpilib.json";
+	// 	// An example trajectory to follow. All units in meter.
+	// 	// String trajectoryJSON = "output/YourPath.wpilib.json";
 
-	// String path1Part1 = "output/path1Part1.wpilib.json";
-	// String path1Part2 = "output/path1Part2.wpilib.json";
-	// String unnamed = "output/unnamed.wpilib.json";
+	// 	String path1Part1 = "output/path1Part1.wpilib.json";
+	// 	String path1Part2 = "output/path1Part2.wpilib.json";
+	// 	String unnamed = "output/unnamed.wpilib.json";
 
-	// try {
-	// switch(autoChooser.getSelected()) {
-	// case "path 1": {
-	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-	// RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-	// CommandGroup temp;
-	// temp.addSequential(part1);
+	// 	try {
+	// 		switch (autoChooser.getSelected()) {
+	// 			case "path 1": {
+	// 				RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// 				RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+	// 				CommandGroup temp;
+	// 				temp.addSequential(part1);
 
-	// return new CommandGroup(
-	// m_Test,
-	// part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
+	// 				return new CommandGroup(
+	// 						m_Test,
+	// 						part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
+	// 			}
+
+	// 			case "path 2": {
+	// 				RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// 				RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+	// 				RamseteCommand part3 = simplfyRamseteCommand(unnamed);
+
+	// 				return new CommandGroup(
+	// 						part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
+	// 						new ParallelCommandGroup(
+	// 								m_Test,
+	// 								part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0))),
+	// 						part3.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
+	// 			}
+
+	// 			default: {
+	// 				RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+	// 				CommandGroup temp;
+	// 				temp.addSequential(part1);
+
+	// 				return temp;
+	// 			}
+	// 		}
+	// 	} catch (IOException ex) {
+	// 		DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+	// 		CommandGroup temp;
+	// 		temp.addSequential(m_autoCommand);
+
+	// 		return temp;
+	// 	}
 	// }
 
-	// case "path 2": {
-	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-	// RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-	// RamseteCommand part3 = simplfyRamseteCommand(unnamed);
+	// public RamseteCommand simplfyRamseteCommand(String path) throws IOException {
+	// 	Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
+	// 	Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
 
-	// return new CommandGroup(
-	// part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
-	// new ParallelCommandGroup(
-	// m_Test,
-	// part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0))),
-	// part3.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
-	// }
-
-	// default: {
-	// RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-	// CommandGroup temp;
-	// temp.addSequential(part1);
-
-	// return temp;
-	// }
-	// }
-	// }
-	// catch (IOException ex) {
-	// DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-	// CommandGroup temp;
-	// temp.addSequential(m_autoCommand);
-
-	// return temp;
-	// }
-	// }
-
-	// public RamseteCommand simplfyRamseteCommand (String path) throws IOException
-	// {
-	// Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
-	// Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-
-	// return new RamseteCommand(
-	// trajectory,
-	// m_DriveTrain::getPose,
-	// new RamseteController(2.0, .7),
-	// new SimpleMotorFeedforward( DriveTrain.ksVolts,
-	// DriveTrain.kvVoltSecondsPerMeter,
-	// DriveTrain.kaVoltSecondsSquaredPerMeter),
-	// DriveTrain.kDriveKinematics,
-	// m_DriveTrain::getWheelSpeeds,
-	// new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-	// new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-	// m_DriveTrain::tankDriveVolts,
-	// m_DriveTrain);
+	// 	return new RamseteCommand(
+	// 			trajectory,
+	// 			m_DriveTrain::getPose,
+	// 			new RamseteController(2.0, .7),
+	// 			new SimpleMotorFeedforward(DriveTrain.ksVolts,
+	// 					DriveTrain.kvVoltSecondsPerMeter,
+	// 					DriveTrain.kaVoltSecondsSquaredPerMeter),
+	// 			DriveTrain.kDriveKinematics,
+	// 			m_DriveTrain::getWheelSpeeds,
+	// 			new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
+	// 			new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
+	// 			m_DriveTrain::tankDriveVolts,
+	// 			m_DriveTrain);
 	// }
 }
