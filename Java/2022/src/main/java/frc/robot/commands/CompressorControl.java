@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class CompressorControl extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_Pneumatics;
   private final PDP m_PDP;
 

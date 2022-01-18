@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class ShifterControl extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_Pneumatics;
   private final PDP m_PDP;
   private final DriveTrain m_DriveTrain;
