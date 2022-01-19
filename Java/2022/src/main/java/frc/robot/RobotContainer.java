@@ -154,7 +154,8 @@ public class RobotContainer {
 					RamseteCommand part1 = simplfyRamseteCommand(unnamed);
 
 					return new SequentialCommandGroup(
-							part1);
+							part1,
+							m_StopDriveTrain);
 				}
 			}
 		} catch (IOException ex) {
