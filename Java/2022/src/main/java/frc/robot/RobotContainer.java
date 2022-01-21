@@ -138,7 +138,6 @@ public class RobotContainer {
 					RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
 					RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
 					RamseteCommand part3 = simplfyRamseteCommand(unnamed);
-
 					
 					return new SequentialCommandGroup(
 							part1,
