@@ -4,7 +4,6 @@ import datetime
 import csv
 import math
 
-login = r.login('larasebastian002@gmail.com', '19375Sebastian')
 
 filePath = 'BTCHist.csv'
 writer = csv.writer(open(filePath, 'a'))
