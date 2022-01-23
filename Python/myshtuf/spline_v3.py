@@ -1,28 +1,35 @@
-import math
-from operator import truediv
+import matplotlib.pyplot as plt
 
-# Units are m , m/s , m/s^2 , m/s^3 , degrees
-# Starting properties
-# state format [x,y,velocity,angle]
 states = [
-[0,0,0,0],
-[5,5],
-[10,20,0,0]
+[0,10,20],
+[0,20,0]
 ]
 
-interpolatedAngles = []
+Points = [[0, 1], [2, 1], [3, 1], [4, 0.5], [5, 1], [4, 2], [6, 2]]
 
-# Constants
-MinCuvature = 0
-MaxCuvature = 1
-DEGREESTORADIANS = math.pi/180
-MAXJERK = 10.0
-MAXACCELERATION = 5.0
-MAXVELOCITY = 10.0
-TARGETVELOCITY = 7.0
-TIMEUNIT = 0.05
-TIMEUNITINVERSE = 1.0/TIMEUNIT
+states = [[],[]]
+for i in Points:
+	states[0].append(i[0])
+	states[1].append(i[1])
 
-currentRadius = MinCuvature
-clockwise = True
 
+TIMEUNIT = 0.001
+
+def bezier(arr, t):
+	if len(arr) <= 1:
+		return arr[0]
+	return bezier(arr[:-1],t) * (1.0 - t) + bezier(arr[1:],t) * t
+
+t = 0.0
+xpos = []
+ypos = []
+while t <= 1.0:
+	# print('x pos: %s\ny pos: %s' % (bezier(states[0],t), bezier(states[1],t)))
+	# mp.plot(bezier(states[0],t), bezier(states[1],t))
+	xpos.append(bezier(states[0],t))
+	ypos.append(bezier(states[1],t))
+	t+= TIMEUNIT
+
+plt.scatter(xpos,ypos)
+
+print("")
