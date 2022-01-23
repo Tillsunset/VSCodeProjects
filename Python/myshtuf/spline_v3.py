@@ -1,4 +1,5 @@
 import math
+from operator import truediv
 
 # Units are m , m/s , m/s^2 , m/s^3 , degrees
 # Starting properties
@@ -22,4 +23,6 @@ TARGETVELOCITY = 7.0
 TIMEUNIT = 0.05
 TIMEUNITINVERSE = 1.0/TIMEUNIT
 
-currentRadius = MAXTURNRADIUS
+currentRadius = MinCuvature
+clockwise = True
+
