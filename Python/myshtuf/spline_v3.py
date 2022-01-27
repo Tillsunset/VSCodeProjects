@@ -5,13 +5,12 @@ states = [
 [0,20,0]
 ]
 
-Points = [[0, 1], [2, 1], [3, 1], [4, 0.5], [5, 1], [4, 2], [6, 2]]
+Points = [[0, 1], [2, 1], [3, 1], [4, 1], [5, 1], [4, 2], [6, 2]]
 
 states = [[],[]]
 for i in Points:
 	states[0].append(i[0])
 	states[1].append(i[1])
-
 
 TIMEUNIT = 0.001
 

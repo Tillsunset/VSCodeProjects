@@ -42,10 +42,10 @@ public class Robot extends TimedRobot {
 		// autonomous chooser on the dashboard.
 		m_robotContainer = new RobotContainer();
 		CommandScheduler.getInstance().setPeriod(getPeriod()); // should use same period as robot period
-		addPeriodic(() -> {
-			m_robotContainer.m_FlyWheel.periodic();
-			m_robotContainer.m_DriveTrain.periodic();
-		}, Constants.secondaryPeriod, Constants.offsetPeriod); // add secondary loop for additioanl processing outside of main loop
+		// addPeriodic(() -> {
+		// 	m_robotContainer.m_Shoot.addPeriodic();
+		// 	m_robotContainer.m_DriveTrain.add;
+		// }, Constants.secondaryPeriod, Constants.offsetPeriod); // add secondary loop for additioanl processing outside of main loop
 	}
 
 	/**

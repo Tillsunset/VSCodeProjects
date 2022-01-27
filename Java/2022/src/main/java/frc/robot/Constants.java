@@ -23,7 +23,7 @@ package frc.robot;
 public final class Constants {
 	private Constants() {}
 	
-	public static final double mainPeriod = 0.010;
+	public static final double mainPeriod = 0.020;
 	public static final double secondaryPeriod = 0.010;
 	public static final double offsetPeriod = 0.005;
 }
