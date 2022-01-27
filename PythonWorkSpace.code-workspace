@@ -1,24 +1,13 @@
 {
 	"folders": [
 		{
+			"name": "myshtuf",
 			"path": "Python/myshtuf"
-		},
-		{
-			"path": "Python/sorts"
-		},
-		{
-			"path": "Python/trading"
-		},
-		{
-			"path": "Python/mathStuff"
-		},
-		{
-			"path": "Python/misc"
 		}
 	],
 	"settings": {
 		"debug.console.wordWrap": false,
-		"python.pythonPath": "/Users/sebastian/opt/miniconda3/envs/class37/bin/python"
+		"python.pythonPath": "/Users/sebastian/.pyenv/versions/3.10.1/bin/python"
 	},
 	"python.terminal.launchArgs": []
 }

@@ -1,7 +1,6 @@
 import math
 import robin_stocks as r
 
-login = r.login('larasebastian002@gmail.com','19375Sebastian')
 
 
 mark_price = float(r.crypto.get_crypto_quote('BTC')['mark_price'])

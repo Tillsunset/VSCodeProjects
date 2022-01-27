@@ -1,9 +1,12 @@
+import string
 dictionaryPath = "/Users/sebastian/Desktop/Dictionary 2.txt"
 textPath = "/Users/sebastian/Desktop/V18.txt"
 
 text = open(textPath, "r")
 dictionary = open(dictionaryPath, "r+")
 tempArray = []
+
+chars = string.ascii_letters + string.digits + '!@#$%^&*()'
 
 words = 0
 for line in text:

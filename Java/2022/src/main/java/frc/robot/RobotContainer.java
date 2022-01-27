@@ -13,20 +13,17 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-/*******************************************************************
- *********** used for pathplanning, no longer maintained ***********
- *******************************************************************/
-// import java.io.IOException;
-// import java.nio.file.Path;
-// import edu.wpi.first.wpilibj.DriverStation;
-// import edu.wpi.first.wpilibj.Filesystem;
-// import edu.wpi.first.math.trajectory.*;
-// import edu.wpi.first.math.controller.RamseteController;
-// import edu.wpi.first.math.controller.PIDController;
-// import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-// import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import java.io.IOException;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.math.trajectory.*;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -37,152 +34,159 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
 
-  private XboxController xbox = new XboxController(0);
-  private JoystickButton button1 = new JoystickButton(xbox, 1);
-  private JoystickButton button2 = new JoystickButton(xbox, 2);
-  private JoystickButton button3 = new JoystickButton(xbox, 3);
-  private JoystickButton button4 = new JoystickButton(xbox, 4);
-  private JoystickButton button5 = new JoystickButton(xbox, 5);
-  private JoystickButton button6 = new JoystickButton(xbox, 6);
-  private JoystickButton button7 = new JoystickButton(xbox, 7);
+	private XboxController xbox = new XboxController(0);
+	private JoystickButton button1 = new JoystickButton(xbox, 1);
+	private JoystickButton button2 = new JoystickButton(xbox, 2);
+	private JoystickButton button3 = new JoystickButton(xbox, 3);
+	private JoystickButton button4 = new JoystickButton(xbox, 4);
+	private JoystickButton button5 = new JoystickButton(xbox, 5);
+	private JoystickButton button6 = new JoystickButton(xbox, 6);
+	private JoystickButton button7 = new JoystickButton(xbox, 7);
 
-  protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
-  protected final Pneumatics m_Pneumatics = new Pneumatics();
-  protected final DriveTrain m_DriveTrain = new DriveTrain();
-  protected final FlyWheel m_FlyWheel = new FlyWheel();
-  protected final Camera m_Camera = new Camera();
-  protected final Intake m_Intake = new Intake();
-  protected final Winch m_Winch = new Winch();
-  protected final Index m_Index = new Index();
-  protected final PDP m_PDP = new PDP();
+	protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
+	protected final Pneumatics m_Pneumatics = new Pneumatics();
+	protected final DriveTrain m_DriveTrain = new DriveTrain();
+	protected final FlyWheel m_FlyWheel = new FlyWheel();
+	protected final Camera m_Camera = new Camera();
+	protected final Intake m_Intake = new Intake();
+	protected final Winch m_Winch = new Winch();
+	protected final Index m_Index = new Index();
+	protected final PDP m_PDP = new PDP();
 
-  protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-  protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
-  protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
-  protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
-  protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
-  protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
-  protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
-  protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
-  protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
-  protected final Down m_Down = new Down(m_Winch);
-  protected final Up m_Up = new Up(m_Winch);
+	protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
+	protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+	protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
+	protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
+	protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
+	protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
+	protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
+	protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
+	protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
+	protected final Down m_Down = new Down(m_Winch);
+	protected final Up m_Up = new Up(m_Winch);
 
-  protected final Test m_autoCommand = new Test(m_ExampleSubsystem);
+	protected final StopDriveTrain m_StopDriveTrain = new StopDriveTrain(m_DriveTrain);
+	protected final Test m_Test = new Test(m_ExampleSubsystem);
 
-  private SendableChooser<String> autoChooser;
+	private SendableChooser<String> autoChooser;
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    autoChooser.setDefaultOption("turn left", "path 1");
-    autoChooser.addOption("turn left while shoot", "path 2");
+	/**
+	 * The container for the robot. Contains subsystems, OI devices, and commands.
+	 */
+	public RobotContainer() {
+		autoChooser.setDefaultOption("turn left", "path 1");
+		autoChooser.addOption("turn left while shoot", "path 2");
 
-    // Configure the button bindings
-    button1.whileHeld(m_Shoot);
-    button1.whileHeld(m_SpinIndex);
-    button2.whileHeld(m_BallIn);
-    button3.whileHeld(m_BallOut);
-    button6.whileHeld(m_Up);
-    button7.whileHeld(m_Down);
-    button4.whenPressed(m_IntakeIn);
-    button5.whenPressed(m_IntakeOut);
+		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
+		m_Pneumatics.setDefaultCommand(m_ShifterControl);
+		m_PDP.setDefaultCommand(m_CompressorControl);
 
-    m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
-    m_Pneumatics.setDefaultCommand(m_ShifterControl);
-    m_PDP.setDefaultCommand(m_CompressorControl);
+		m_DriveTrain.register();
+		m_FlyWheel.register();
 
-    m_DriveTrain.register();
-    m_FlyWheel.register();
-  }
+		configureButtonBindings();
+	}
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+	private void configureButtonBindings() {
+		// Configure the button bindings
+		button1.whileHeld(m_Shoot);
+		button1.whileHeld(m_SpinIndex);
+		button2.whileHeld(m_BallIn);
+		button3.whileHeld(m_BallOut);
+		button6.whileHeld(m_Up);
+		button7.whileHeld(m_Down);
+		button4.whenPressed(m_IntakeIn);
+		button5.whenPressed(m_IntakeOut);
+	}
 
-  public SequentialCommandGroup getAutonomousCommand() {
-    SequentialCommandGroup temp = new SequentialCommandGroup();
-    temp.addCommands(m_autoCommand);
-    return temp;
-  }
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
 
-  /*******************************************************************
-   ******* Old pathplanning auto in 2020, no longer maintained *******
-   *******************************************************************/
-  // public CommandGroup getAutonomousCommand() {
+	// public SequentialCommandGroup getAutonomousCommand2() {
+	// 	return new SequentialCommandGroup(
+	// 			m_StopDriveTrain);
+	// }
 
-  //   // An example trajectory to follow. All units in meter.
-  //   //String trajectoryJSON = "output/YourPath.wpilib.json";
+	public SequentialCommandGroup getAutonomousCommand() {
 
-  //   String path1Part1 = "output/path1Part1.wpilib.json";
-  //   String path1Part2 = "output/path1Part2.wpilib.json";
-  //   String unnamed = "output/unnamed.wpilib.json";
+		// An example trajectory to follow. All units in meter.
+		// String trajectoryJSON = "output/YourPath.wpilib.json";
 
-  //   try {
-  //     switch(autoChooser.getSelected()) {
-  //       case "path 1": {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-  //         CommandGroup temp;
-  //         temp.addSequential(part1);
+		String path1Part1 = "output/path1Part1.wpilib.json";
+		String path1Part2 = "output/path1Part2.wpilib.json";
+		String unnamed = "output/unnamed.wpilib.json";
 
-  //         return new CommandGroup(
-  //           m_Test,
-  //           part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
-  //       }
+		try {
+			switch (autoChooser.getSelected()) {
+				case "path 1": {
+					resetOdometry(path1Part1);
+					RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+					RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
 
-  //       case "path 2": {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
-  //         RamseteCommand part3 = simplfyRamseteCommand(unnamed);
+					return new SequentialCommandGroup(
+							part1,
+							m_Test,
+							part2,
+							m_StopDriveTrain);
+				}
 
-  //         return new CommandGroup(
-  //           part1.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)),
-  //           new ParallelCommandGroup(
-  //             m_Test,
-  //             part2.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0))),
-  //           part3.andThen(() -> m_DriveTrain.tankDriveVolts(0, 0)));
-  //       }
+				case "path 2": {
+					resetOdometry(path1Part1);
+					RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
+					RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
+					RamseteCommand part3 = simplfyRamseteCommand(unnamed);
+					
+					return new SequentialCommandGroup(
+							part1,
+							new ParallelCommandGroup(
+									m_Test,
+									part2),
+							part3,
+							m_StopDriveTrain);
+				}
 
-  //       default: {
-  //         RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
-  //         CommandGroup temp;
-  //         temp.addSequential(part1);
+				default: {
+					resetOdometry(unnamed);
+					RamseteCommand part1 = simplfyRamseteCommand(unnamed);
 
-  //         return temp;
-  //       }
-  //     }
-  //   } 
-  //   catch (IOException ex) {
-  //     DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-  //     CommandGroup temp;
-  //     temp.addSequential(m_autoCommand);
+					return new SequentialCommandGroup(
+							part1,
+							m_StopDriveTrain);
+				}
+			}
+		} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
 
-  //     return temp;
-  //   }
-  // }
+			return new SequentialCommandGroup(
+					m_StopDriveTrain);
+		}
+	}
 
-  // public RamseteCommand simplfyRamseteCommand (String path) throws IOException {
-  //   Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
-  //   Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+	public void resetOdometry(String path) throws IOException {
+		Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(
+				Filesystem.getDeployDirectory().toPath().resolve(path));
+		m_DriveTrain.resetOdometry(trajectory.getInitialPose());
+	}
 
-  //   return new RamseteCommand(
-  //     trajectory,
-  //     m_DriveTrain::getPose,
-  //     new RamseteController(2.0, .7),
-  //     new SimpleMotorFeedforward( DriveTrain.ksVolts,
-  //                                 DriveTrain.kvVoltSecondsPerMeter,
-  //                                 DriveTrain.kaVoltSecondsSquaredPerMeter),
-  //     DriveTrain.kDriveKinematics, 
-  //     m_DriveTrain::getWheelSpeeds,
-  //     new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-  //     new PIDController(DriveTrain.kPDriveVel, 0, 0, period),
-  //     m_DriveTrain::tankDriveVolts,
-  //     m_DriveTrain);
+	public RamseteCommand simplfyRamseteCommand(String path) throws IOException {
+		Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(
+				Filesystem.getDeployDirectory().toPath().resolve(path));
 
-
-  // }
+		return new RamseteCommand(
+				trajectory,
+				m_DriveTrain::getPose,
+				new RamseteController(2.0, .7),
+				new SimpleMotorFeedforward(DriveTrain.ksVolts,
+						DriveTrain.kvVoltSecondsPerMeter,
+						DriveTrain.kaVoltSecondsSquaredPerMeter),
+				DriveTrain.kDriveKinematics,
+				m_DriveTrain::getWheelSpeeds,
+				new PIDController(DriveTrain.kPDriveVel, 0, 0),
+				new PIDController(DriveTrain.kPDriveVel, 0, 0),
+				m_DriveTrain::tankDriveVolts,
+				m_DriveTrain);
+	}
 }

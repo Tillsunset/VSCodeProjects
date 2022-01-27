@@ -17,99 +17,95 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class Shoot extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final FlyWheel m_FlyWheel;
-  private final Pneumatics m_Pneumatics;
+	private final FlyWheel m_FlyWheel;
+	private final Pneumatics m_Pneumatics;
 
-  double distance;
-  double actualVelocity;
-  double desiredVelocity;
-  double lastVelocityDifference;
-  double velocityDifference;
-  double integral;
-  double derivative;
-  double power;
-  NetworkTableEntry ty;
+	double distance;
+	double actualVelocity;
+	double desiredVelocity;
+	double lastVelocityDifference;
+	double velocityDifference;
+	double integral;
+	double derivative;
+	double power;
+	NetworkTableEntry ty;
 
-  double kP;// tune these values
-  double kI;
-  double kD;
-  double kF;
-  double integralLimit = 10000.0;
-  double cameraHeight = 3/3.281;// height from ground, meter
-  double cameraAngle = 15;// degrees
-  double targetHeight = 7.4792/3.281;// assume center of target, may be bottom edge, meter
+	double kP;// tune these values
+	double kI;
+	double kD;
+	double kF;
+	double integralLimit = 10000.0;
+	double cameraHeight = 3 / 3.281;// height from ground, meter
+	double cameraAngle = 15;// degrees
+	double targetHeight = 7.4792 / 3.281;// assume center of target, may be bottom edge, meter
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public Shoot(FlyWheel FlyWheel, Camera Camera, Pneumatics Pneumatics) {
-    m_FlyWheel = FlyWheel;
-    m_Pneumatics = Pneumatics;
-    ty = Camera.getTy();
-    // Use requires() here to declare subsystem dependencies.
-    addRequirements(m_FlyWheel);
-    addRequirements(m_Pneumatics);
-  }
+	/**
+	 * Creates a new ExampleCommand.
+	 *
+	 * @param subsystem The subsystem used by this command.
+	 */
+	public Shoot(FlyWheel FlyWheel, Camera Camera, Pneumatics Pneumatics) {
+		m_FlyWheel = FlyWheel;
+		m_Pneumatics = Pneumatics;
+		ty = Camera.getTy();
+		// Use requires() here to declare subsystem dependencies.
+		addRequirements(m_FlyWheel);
+		addRequirements(m_Pneumatics);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    m_Pneumatics.c.disable();
-    m_FlyWheel.elevator.set(.5);
-    integral = 0;
-    velocityDifference = 0;
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		m_Pneumatics.c.disable();
+		m_FlyWheel.elevator.set(.5);
+		integral = 0;
+		velocityDifference = 0;
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0)) + cameraAngle); // distance in meter
-    desiredVelocity = ((.338 * distance + 23.93) * 150) / 60; // ((distance to projectile speed) to Wheel rpm) to sec
-    actualVelocity = (m_FlyWheel.getVel()) / (3 * 12); // change in position over ticks per wheel rev per sec
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0)) + cameraAngle); // distance in meter
+		desiredVelocity = ((.338 * distance + 23.93) * 150) / 60; // ((distance to projectile speed) to Wheel rpm) to
+																	// sec
+		actualVelocity = (m_FlyWheel.getVel()) / (3 * 12); // change in position over ticks per wheel rev per sec
 
-    lastVelocityDifference = velocityDifference;
-    velocityDifference = desiredVelocity - actualVelocity;
-    derivative = (velocityDifference - lastVelocityDifference) / m_FlyWheel.getTimeDif();
+		lastVelocityDifference = velocityDifference;
+		velocityDifference = desiredVelocity - actualVelocity;
+		derivative = (velocityDifference - lastVelocityDifference) / m_FlyWheel.getTimeDif();
 
-    if (Math.abs(power) < 1.0) {// anti integral windup
-      if (integral < -integralLimit) {
-        integral = -integralLimit;
-      }
-      else if (integral > integralLimit) {
-        integral = integralLimit;
-      }
-      else {
-        integral += velocityDifference * m_FlyWheel.getTimeDif();
-      }
-    }
+		if (Math.abs(power) < 1.0) {// anti integral windup
+			if (integral < -integralLimit) {
+				integral = -integralLimit;
+			} else if (integral > integralLimit) {
+				integral = integralLimit;
+			} else {
+				integral += velocityDifference * m_FlyWheel.getTimeDif();
+			}
+		}
 
-    power = kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity;
+		power = kP * velocityDifference + kI * integral + kD * derivative + kF * desiredVelocity;
 
-    if(power > 1.0) {
-      m_FlyWheel.motorGroup.set(1.0);
-    }
-    else if(power < -1.0) {
-      m_FlyWheel.motorGroup.set(-1.0);
-    }
-    else {
-      m_FlyWheel.motorGroup.set(power);
-    }
-  }
+		if (power > 1.0) {
+			m_FlyWheel.motorGroup.set(1.0);
+		} else if (power < -1.0) {
+			m_FlyWheel.motorGroup.set(-1.0);
+		} else {
+			m_FlyWheel.motorGroup.set(power);
+		}
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_Pneumatics.c.enableDigital();
-    m_FlyWheel.motorGroup.set(0);
-    m_FlyWheel.elevator.set(0);
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		m_Pneumatics.c.enableDigital();
+		m_FlyWheel.motorGroup.set(0);
+		m_FlyWheel.elevator.set(0);
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }

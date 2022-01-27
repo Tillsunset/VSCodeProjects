@@ -12,20 +12,20 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PDP extends SubsystemBase {
-  private PowerDistribution powerDistribution = new PowerDistribution(0, ModuleType.kCTRE);
-  
-  public PDP() {
-    /*
-     * Creates a new ExampleSubsystem.
-     */
-  }
+	private PowerDistribution powerDistribution = new PowerDistribution(0, ModuleType.kCTRE);
 
-  public double getVoltage() {
-    return powerDistribution.getVoltage();
-  }
+	public PDP() {
+		/*
+		 * Creates a new ExampleSubsystem.
+		 */
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	public double getVoltage() {
+		return powerDistribution.getVoltage();
+	}
+
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }

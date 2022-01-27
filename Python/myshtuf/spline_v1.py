@@ -51,7 +51,7 @@ def CatmullRomSpline(P0, P1, P2, P3, nPoints=20):
 
 def CatmullRomChain(P):
     """
-    Calculate Catmull–Rom for a chain of points and return the combined curve.
+    Calculate Catmull-Rom for a chain of points and return the combined curve.
     """
     sz = len(P)
 
