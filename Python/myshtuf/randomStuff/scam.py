@@ -12,7 +12,7 @@ ending = [	'@yahoo.com',
 names = json.loads(open('./misc/names.json').read())
 
 for name in names:
-	name_extra = ''.join(random.choices(string.digits, k= random.randint(0,4)))
+	name_extra = ''.join(random.choices(string.digits, k = random.randint(0,4)))
 
 	username = name.lower() + name_extra + random.choice(ending)
 	password = ''.join(random.choices(chars, k = 8 + random.randint(0,8)))

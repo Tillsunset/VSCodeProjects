@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
 	private RobotContainer m_robotContainer;
 
 	public Robot() {
-		super(Constants.mainPeriod); // 10 ms period between robotcs periodic cycles
+		super(Constants.mainPeriod); // 20 ms period between robotcs periodic cycles
 		// period between which the cpu cycles through the code, dangerous if you change
 		// the value too much, default is .02, check roborio cpu % in driverstation logs
 	}
@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 		CommandScheduler.getInstance().setPeriod(getPeriod()); // should use same period as robot period
 		// addPeriodic(() -> {
 		// 	m_robotContainer.m_Shoot.addPeriodic();
-		// 	m_robotContainer.m_DriveTrain.add;
+		// 	m_robotContainer.m_FlyWheel.periodic();
 		// }, Constants.secondaryPeriod, Constants.offsetPeriod); // add secondary loop for additioanl processing outside of main loop
 	}
 
