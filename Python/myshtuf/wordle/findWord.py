@@ -1,7 +1,7 @@
 import json
 
 def calcFreq(x):
-	words5l = 'wordle/words5l.json'
+	words5l = 'wordle/wordBankFromSite.json'
 	words5l = json.loads(open(words5l).read())
 	letterOccurrence = 'wordle/letterOccurrence.json'
 	letterOccurrence = json.loads(open(letterOccurrence).read())
@@ -40,9 +40,10 @@ findMaxval = 0
 # knownLettersButNotPosition = ['','','','','']
 # doesNotContains = ''
 
-knownLettersAndPosition = ['f','','','e','']
-knownLettersButNotPosition = ['','','r','','']
-doesNotContains = 'sanbotyciliaumd'
+knownLettersAndPosition = ['s','','','','']
+knownLettersButNotPosition = ['','','','et','ys']
+doesNotContains = 'an'
+
 
 doesContains = ''
 for i in knownLettersAndPosition:
@@ -97,7 +98,7 @@ for i in wordsFreq:
 		maxWord.append(i)
 
 print(matches)
-if matches < 3:
+if matches < 10:
 	print(maxWord)
 else:
 	for i in wordsFreq:
