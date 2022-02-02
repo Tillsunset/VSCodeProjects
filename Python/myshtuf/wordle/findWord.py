@@ -39,9 +39,9 @@ findMaxVal = 0
 # knownLettersButNotPosition = ['','','','','']
 # doesNotContains = ''
 
-knownLettersAndPosition = ['s','','','','']
-knownLettersButNotPosition = ['','','','et','ys']
-doesNotContains = 'an'
+knownLettersAndPosition = ['','o','','','']
+knownLettersButNotPosition = ['s','i','','t','']
+doesNotContains = 'anebrycla'
 
 
 doesContains = ''
@@ -101,4 +101,3 @@ for i in wordsFreq:
 		findLetterWord = i
 
 print(findLetterWord)
-
