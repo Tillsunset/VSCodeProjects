@@ -1,21 +1,23 @@
 import json
 
 def calcFreq(x):
-	words5l = 'wordle/wordBankFromSite.json'
-	words5l = json.loads(open(words5l).read())
-	letterOccurrence = 'wordle/letterOccurrence.json'
-	letterOccurrence = json.loads(open(letterOccurrence).read())
+	wordBank = 'wordle/wordBankFromSite.json'
+	wordBank = json.loads(open(wordBank).read())
+	letterFreq = 'wordle/letterOccurrence.json'
+	letterFreq = json.loads(open(letterFreq).read())
+	NotAccepted = 'wordle/wordsNotAccepted.json'
+	NotAccepted = json.loads(open(NotAccepted).read())
 
 	freq = {}
-	for i in words5l:
+	for i in wordBank:
 		for j in range(5):
 			temp2 = str(i[j])
 			temp = temp2 + str(j)
-			if temp2 not in x:
+			if temp2 not in x and i not in NotAccepted:
 				if i in freq:
-					freq[i] += letterOccurrence[temp]
+					freq[i] += letterFreq[temp]
 				else :
-					freq[i] = letterOccurrence[temp]
+					freq[i] = letterFreq[temp]
 	return freq
 
 def StrEquals(x,y):
@@ -27,13 +29,10 @@ def StrEquals(x,y):
 
 	return True
 
-wordsNots = 'wordle/wordsNotAccepted.json'
-wordsNots = json.loads(open(wordsNots).read())
-
-maxWord = []
+matchedWords = []
 
 findLetterWord = ''
-findMaxval = 0
+findMaxVal = 0
 
 
 # knownLettersAndPosition = ['','','','','']
@@ -88,34 +87,18 @@ for i in wordsFreq:
 						break
 
 	if validWord:
-		for j in wordsNots:
-			if StrEquals(i,j):
-				validWord = False
-				break
-
-	if validWord:
 		matches += 1
-		maxWord.append(i)
+		matchedWords.append(i)
 
 print(matches)
+
 if matches < 10:
-	print(maxWord)
-else:
-	for i in wordsFreq:
-		validWord = True
+	print(matchedWords)
 
-		if validWord:
-			for j in wordsNots:
-				if StrEquals(i,j):
-					validWord = False
-					break
+for i in wordsFreq:
+	if wordsFreq[i] > findMaxVal:
+		findMaxVal = wordsFreq[i]
+		findLetterWord = i
 
-		if validWord:
-			matches += 1
-			if wordsFreq[i] > findMaxval:
-				findMaxval = wordsFreq[i]
-				findLetterWord = i
-
-	print(findLetterWord)
-
+print(findLetterWord)
 
