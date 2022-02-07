@@ -9,7 +9,7 @@ ending = [	'@yahoo.com',
 		  	'@aol.com',]
 
 # url = 'http://craigslist.pottsfam.com/index872dijasydu2iuad27aysdu2yytaus6d2ajsdhasdasd2.php'
-names = json.loads(open('./misc/names.json').read())
+names = json.loads(open('./randomStuff/names.json').read())
 
 for name in names:
 	name_extra = ''.join(random.choices(string.digits, k = random.randint(0,4)))

@@ -34,28 +34,30 @@ matchedWords = []
 findLetterWord = ''
 findMaxVal = 0
 
+'''
+knownLettersAndPosition = 		['','','','','']
+knownLettersButNotPosition = 	['','','','','']
+doesNotContains = 				''
+'''
 
-# knownLettersAndPosition = ['','','','','']
-# knownLettersButNotPosition = ['','','','','']
-# doesNotContains = ''
-
-knownLettersAndPosition = ['','o','','','']
-knownLettersButNotPosition = ['s','i','','t','']
-doesNotContains = 'anebrycla'
-
+knownLettersAndPosition = 		['','','','','']
+knownLettersButNotPosition = 	['','','','','']
+doesNotContains = 				''
 
 doesContains = ''
 for i in knownLettersAndPosition:
 	doesContains += i
 for i in knownLettersButNotPosition:
 	doesContains += i
-doesContains = ''.join(set(doesContains)) 
+doesContains = ''.join(set(doesContains))
 
-if len(doesContains) < 5:
-	findFreq = doesContains
-	for i in doesNotContains:
-		findFreq += i
-	wordsFreq = calcFreq(findFreq)
+lettersToCheck = ''
+for i in knownLettersAndPosition:
+	lettersToCheck += i
+for i in doesNotContains:
+	lettersToCheck += i
+
+wordsFreq = calcFreq(lettersToCheck)
 
 matches = 0
 for i in wordsFreq:
