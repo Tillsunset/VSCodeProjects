@@ -20,7 +20,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public Robot() {
-    super(.01);// period between which the cpu cycles through the code, dangerous if you change the value too much, default is .02, check roborio cpu % in driverstation logs
   }
 
   /**

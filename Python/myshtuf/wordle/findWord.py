@@ -1,23 +1,40 @@
 import json
+import string
 
-def calcFreq(x):
+def ridXFromY(x, y = string.ascii_lowercase):
+	for i in x:
+		if i in y:
+			y = y.replace(i,'')
+	return y
+
+def uniqueStr(x):
+	temp = ''
+	for i in x:
+		if i not in temp:
+			temp += i
+	return temp
+
+def calcFreq(x, y = False):
 	wordBank = 'wordle/wordBankFromSite.json'
 	wordBank = json.loads(open(wordBank).read())
-	letterFreq = 'wordle/letterOccurrence.json'
-	letterFreq = json.loads(open(letterFreq).read())
+	letterAndPosFreq = 'wordle/letterOccurrence.json'
+	letterAndPosFreq = json.loads(open(letterAndPosFreq).read())
 	NotAccepted = 'wordle/wordsNotAccepted.json'
 	NotAccepted = json.loads(open(NotAccepted).read())
 
 	freq = {}
 	for i in wordBank:
-		for j in range(5):
-			temp2 = str(i[j])
+		temp3 = i
+		if(y):
+			temp3 = uniqueStr(temp3)
+		for j in range(len(temp3)):
+			temp2 = str(temp3[j])
 			temp = temp2 + str(j)
 			if temp2 not in x and i not in NotAccepted:
 				if i in freq:
-					freq[i] += letterFreq[temp]
+					freq[i] += letterAndPosFreq[temp]
 				else :
-					freq[i] = letterFreq[temp]
+					freq[i] = letterAndPosFreq[temp]
 	return freq
 
 def StrEquals(x,y):
@@ -50,6 +67,7 @@ for i in knownLettersAndPosition:
 for i in knownLettersButNotPosition:
 	doesContains += i
 doesContains = ''.join(set(doesContains))
+doesNotContains = ridXFromY(doesContains, doesNotContains)
 
 lettersToCheck = ''
 for i in knownLettersAndPosition:
@@ -97,6 +115,13 @@ print(matches)
 if matches < 10:
 	print(matchedWords)
 
+temp = ''
+for i in matchedWords:
+	temp +=i
+
+temp = ridXFromY(uniqueStr(temp))
+
+wordsFreq = calcFreq(lettersToCheck + temp, True)
 for i in wordsFreq:
 	if wordsFreq[i] > findMaxVal:
 		findMaxVal = wordsFreq[i]
