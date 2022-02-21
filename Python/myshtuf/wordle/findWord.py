@@ -13,12 +13,24 @@ def uniqueStr(x):
 		if i not in temp:
 			temp += i
 	return temp
+	
+def calcLetterFreq():
+	global letterAndPosFreq
+	for i in letterAndPosFreq:
+		letterAndPosFreq[i] = 0
+	global matchedWords
+	for i in matchedWords:
+		for j in range(len(i)):
+			temp = str(i[j]) + str(j)
+			letterAndPosFreq[temp] += 1
 
+
+letterAndPosFreq = 'wordle/letterOccurrence.json'
+letterAndPosFreq = json.loads(open(letterAndPosFreq).read())
 def calcFreq(x, y = False):
+	global letterAndPosFreq
 	wordBank = 'wordle/wordBankFromSite.json'
 	wordBank = json.loads(open(wordBank).read())
-	letterAndPosFreq = 'wordle/letterOccurrence.json'
-	letterAndPosFreq = json.loads(open(letterAndPosFreq).read())
 	NotAccepted = 'wordle/wordsNotAccepted.json'
 	NotAccepted = json.loads(open(NotAccepted).read())
 
@@ -51,15 +63,17 @@ matchedWords = []
 findLetterWord = ''
 findMaxVal = 0
 
-'''
+"""
 knownLettersAndPosition = 		['','','','','']
 knownLettersButNotPosition = 	['','','','','']
-doesNotContains = 				''
+doesNotContains = 				'''
 '''
+"""
 
-knownLettersAndPosition = 		['','','','','']
-knownLettersButNotPosition = 	['','','','','']
-doesNotContains = 				''
+knownLettersAndPosition = 		['f','','','e','t']
+knownLettersButNotPosition = 	['','','','l','']
+doesNotContains = 				'''caresdoilyum
+'''
 
 doesContains = ''
 for i in knownLettersAndPosition:
@@ -70,7 +84,7 @@ doesContains = ''.join(set(doesContains))
 doesNotContains = ridXFromY(doesContains, doesNotContains)
 
 lettersToCheck = ''
-for i in knownLettersAndPosition:
+for i in knownLettersButNotPosition:
 	lettersToCheck += i
 for i in doesNotContains:
 	lettersToCheck += i
@@ -121,6 +135,7 @@ for i in matchedWords:
 
 temp = ridXFromY(uniqueStr(temp))
 
+# calcLetterFreq()
 wordsFreq = calcFreq(lettersToCheck + temp, True)
 for i in wordsFreq:
 	if wordsFreq[i] > findMaxVal:
@@ -128,3 +143,16 @@ for i in wordsFreq:
 		findLetterWord = i
 
 print(findLetterWord)
+print(findMaxVal)
+
+findMaxVal = 0
+findLetterWord = ''
+calcLetterFreq()
+wordsFreq = calcFreq(lettersToCheck + temp, True)
+for i in wordsFreq:
+	if wordsFreq[i] > findMaxVal:
+		findMaxVal = wordsFreq[i]
+		findLetterWord = i
+
+print(findLetterWord)
+print(findMaxVal)
