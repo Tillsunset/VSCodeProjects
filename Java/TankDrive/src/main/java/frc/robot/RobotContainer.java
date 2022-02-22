@@ -11,19 +11,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.XboxController;
 
-/*
- * used for pathplanning, no longer maintained
- */
-// import java.io.IOException;
-// import java.nio.file.Path;
-// import edu.wpi.first.wpilibj.DriverStation;
-// import edu.wpi.first.wpilibj.Filesystem;
-// import edu.wpi.first.math.trajectory.*;
-// import edu.wpi.first.math.controller.RamseteController;
-// import edu.wpi.first.math.controller.PIDController;
-// import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-// import edu.wpi.first.wpilibj2.command.RamseteCommand;
-
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should

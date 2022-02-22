@@ -11,17 +11,23 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
+  private WPI_TalonSRX rightBack = talonSRXConstructor(1);
+  private WPI_TalonSRX rightFront = talonSRXConstructor(2);
+  private WPI_TalonSRX leftBack = talonSRXConstructor(3);
+  private WPI_TalonSRX leftFront = talonSRXConstructor(4);
 
-  public WPI_TalonSRX right = talonSRXConstructor(1);
-  public WPI_TalonSRX left = talonSRXConstructor(2);
-  public DifferentialDrive driveBase = new DifferentialDrive(right, left);
+  private MotorControllerGroup leftSide = new MotorControllerGroup(leftFront, leftBack);
+  private MotorControllerGroup rightSide = new MotorControllerGroup(rightFront, rightBack);
+
+  public DifferentialDrive driveBase = new DifferentialDrive(rightSide, leftSide);
 
   public DriveTrain() {
-    right.setInverted(true);
-    left.setInverted(false);
+    rightSide.setInverted(true);
+    leftSide.setInverted(false);
   }
 
   @Override
