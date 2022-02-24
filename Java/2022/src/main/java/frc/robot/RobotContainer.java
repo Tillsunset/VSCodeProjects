@@ -54,7 +54,7 @@ public class RobotContainer {
 	protected final PDP m_PDP = new PDP();
 
 	protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-	protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+	protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain);
 	protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
 	protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
 	protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
@@ -77,7 +77,6 @@ public class RobotContainer {
 		autoChooser.setDefaultOption("turn left", "path 1");
 		autoChooser.addOption("turn left while shoot", "path 2");
 
-		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
 		m_Pneumatics.setDefaultCommand(m_ShifterControl);
 		m_PDP.setDefaultCommand(m_CompressorControl);
 
@@ -85,6 +84,8 @@ public class RobotContainer {
 		m_FlyWheel.register();
 
 		configureButtonBindings();
+
+		m_DriveWithJoystick.passJoy(xbox);
 	}
 
 	private void configureButtonBindings() {
@@ -97,6 +98,10 @@ public class RobotContainer {
 		button7.whileHeld(m_Down);
 		button4.whenPressed(m_IntakeIn);
 		button5.whenPressed(m_IntakeOut);
+	}
+
+	public void enableTeleopControl() {
+		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
 	}
 
 	/**

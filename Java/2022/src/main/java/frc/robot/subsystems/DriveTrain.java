@@ -99,8 +99,8 @@ public class DriveTrain extends SubsystemBase {
 		}
 
 		m_odometry.update(gyro.getRotation2d(),
-		driveFL.getSelectedSensorPosition() * TicksToMeterRatio,
-		driveFR.getSelectedSensorPosition() * TicksToMeterRatio);
+			driveFL.getSelectedSensorPosition() * TicksToMeterRatio,
+			driveFR.getSelectedSensorPosition() * TicksToMeterRatio);
 	}
 
 	public double getLeftVel() {

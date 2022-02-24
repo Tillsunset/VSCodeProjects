@@ -23,9 +23,8 @@ public class DriveWithJoystick extends CommandBase {
 	 *
 	 * @param subsystem The subsystem used by this command.
 	 */
-	public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
+	public DriveWithJoystick(DriveTrain DriveTrain) {
 		m_DriveTrain = DriveTrain;
-		xbox = x;
 		// Use requires() here to declare subsystem dependencies.
 		addRequirements(m_DriveTrain);
 	}
@@ -50,5 +49,9 @@ public class DriveWithJoystick extends CommandBase {
 	@Override
 	public boolean isFinished() {
 		return false;
+	}
+
+	public void passJoy(XboxController x) {
+		xbox = x;
 	}
 }
