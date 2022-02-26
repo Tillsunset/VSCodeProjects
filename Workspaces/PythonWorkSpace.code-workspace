@@ -2,7 +2,7 @@
 	"folders": [
 		{
 			"name": "myshtuf",
-			"path": "Python/myshtuf"
+			"path": "../Python/myshtuf"
 		}
 	],
 	"settings": {
