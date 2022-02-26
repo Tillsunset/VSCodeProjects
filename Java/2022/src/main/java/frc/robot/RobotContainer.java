@@ -43,30 +43,30 @@ public class RobotContainer {
 	private JoystickButton button6 = new JoystickButton(xbox, 6);
 	private JoystickButton button7 = new JoystickButton(xbox, 7);
 
-	protected final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
-	protected final Pneumatics m_Pneumatics = new Pneumatics();
-	protected final DriveTrain m_DriveTrain = new DriveTrain();
-	protected final FlyWheel m_FlyWheel = new FlyWheel();
-	protected final Camera m_Camera = new Camera();
-	protected final Intake m_Intake = new Intake();
-	protected final Winch m_Winch = new Winch();
-	protected final Index m_Index = new Index();
-	protected final PDP m_PDP = new PDP();
+	private ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
+	private Pneumatics m_Pneumatics = new Pneumatics();
+	private DriveTrain m_DriveTrain = new DriveTrain();
+	private FlyWheel m_FlyWheel = new FlyWheel();
+	private Camera m_Camera = new Camera();
+	private Intake m_Intake = new Intake();
+	private Winch m_Winch = new Winch();
+	private Index m_Index = new Index();
+	private PDP m_PDP = new PDP();
 
-	protected final CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-	protected final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain);
-	protected final ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
-	protected final IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
-	protected final SpinIndex m_SpinIndex = new SpinIndex(m_Index);
-	protected final IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
-	protected final BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
-	protected final BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
-	protected final Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
-	protected final Down m_Down = new Down(m_Winch);
-	protected final Up m_Up = new Up(m_Winch);
+	private CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
+	private DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain);
+	private ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
+	private SpinIndex m_SpinIndex = new SpinIndex(m_Index);
+	private IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
+	private IntakeIn m_IntakeIn = new IntakeIn(m_Pneumatics);
+	private BallOut m_BallOut = new BallOut(m_Intake, m_Pneumatics);
+	private BallIn m_BallIn = new BallIn(m_Intake, m_Pneumatics);
+	private Shoot m_Shoot = new Shoot(m_FlyWheel, m_Camera, m_Pneumatics);
+	private Down m_Down = new Down(m_Winch);
+	private Up m_Up = new Up(m_Winch);
 
-	protected final StopDriveTrain m_StopDriveTrain = new StopDriveTrain(m_DriveTrain);
-	protected final Test m_Test = new Test(m_ExampleSubsystem);
+	private StopDriveTrain m_StopDriveTrain = new StopDriveTrain(m_DriveTrain);
+	private Test m_Test = new Test(m_ExampleSubsystem);
 
 	private SendableChooser<String> autoChooser;
 
@@ -111,8 +111,8 @@ public class RobotContainer {
 	 */
 
 	// public SequentialCommandGroup getAutonomousCommand2() {
-	// 	return new SequentialCommandGroup(
-	// 			m_StopDriveTrain);
+	// return new SequentialCommandGroup(
+	// m_StopDriveTrain);
 	// }
 
 	public SequentialCommandGroup getAutonomousCommand() {
@@ -143,7 +143,7 @@ public class RobotContainer {
 					RamseteCommand part1 = simplfyRamseteCommand(path1Part1);
 					RamseteCommand part2 = simplfyRamseteCommand(path1Part2);
 					RamseteCommand part3 = simplfyRamseteCommand(unnamed);
-					
+
 					return new SequentialCommandGroup(
 							part1,
 							new ParallelCommandGroup(
@@ -184,7 +184,8 @@ public class RobotContainer {
 				trajectory,
 				m_DriveTrain::getPose,
 				new RamseteController(2.0, .7),
-				new SimpleMotorFeedforward(DriveTrain.ksVolts,
+				new SimpleMotorFeedforward(
+						DriveTrain.ksVolts,
 						DriveTrain.kvVoltSecondsPerMeter,
 						DriveTrain.kaVoltSecondsSquaredPerMeter),
 				DriveTrain.kDriveKinematics,
