@@ -43,9 +43,10 @@ public class Robot extends TimedRobot {
 		m_robotContainer = new RobotContainer();
 		CommandScheduler.getInstance().setPeriod(getPeriod()); // should use same period as robot period
 		// addPeriodic(() -> {
-		// 	m_robotContainer.m_Shoot.addPeriodic();
-		// 	m_robotContainer.m_FlyWheel.periodic();
-		// }, Constants.secondaryPeriod, Constants.offsetPeriod); // add secondary loop for additioanl processing outside of main loop
+		// m_robotContainer.m_Shoot.addPeriodic();
+		// m_robotContainer.m_FlyWheel.periodic();
+		// }, Constants.secondaryPeriod, Constants.offsetPeriod); // add secondary loop
+		// for additioanl processing outside of main loop
 	}
 
 	/**

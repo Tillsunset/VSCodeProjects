@@ -59,8 +59,9 @@ public class DriveTrain extends SubsystemBase {
 	public static final double kvVoltSecondsPerMeter = 1.98;
 	public static final double kaVoltSecondsSquaredPerMeter = 0.2;
 	public static final double kPDriveVel = 8.5;
-	public static final DifferentialDriveKinematics kDriveKinematics =
-	new DifferentialDriveKinematics(1);// Wheel distance in meters
+	public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(1);// Wheel
+																											// distance
+																											// in meters
 
 	public DriveTrain() {
 		driveFR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -99,8 +100,8 @@ public class DriveTrain extends SubsystemBase {
 		}
 
 		m_odometry.update(gyro.getRotation2d(),
-			driveFL.getSelectedSensorPosition() * TicksToMeterRatio,
-			driveFR.getSelectedSensorPosition() * TicksToMeterRatio);
+				driveFL.getSelectedSensorPosition() * TicksToMeterRatio,
+				driveFR.getSelectedSensorPosition() * TicksToMeterRatio);
 	}
 
 	public double getLeftVel() {
@@ -119,7 +120,7 @@ public class DriveTrain extends SubsystemBase {
 	public Pose2d getPose() {
 		return m_odometry.getPoseMeters();
 	}
-	
+
 	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
 		return new DifferentialDriveWheelSpeeds(leftVel, rightVel);
 	}
@@ -135,7 +136,7 @@ public class DriveTrain extends SubsystemBase {
 		m_odometry.resetPosition(pose, gyro.getRotation2d());
 	}
 
-	public void resetEncoders(){
+	public void resetEncoders() {
 		driveFR.setSelectedSensorPosition(0);
 		driveFL.setSelectedSensorPosition(0);
 	}

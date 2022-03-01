@@ -65,7 +65,9 @@ public class Shoot extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0)) + cameraAngle); // distance in meter
+		distance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(ty.getDouble(0.0)) + cameraAngle); // distance
+																												// in
+																												// meter
 		desiredVelocity = ((.338 * distance + 23.93) * 150) / 60; // ((distance to projectile speed) to Wheel rpm) to
 																	// sec
 		actualVelocity = (m_FlyWheel.getVel()) / (3 * 12); // change in position over ticks per wheel rev per sec
