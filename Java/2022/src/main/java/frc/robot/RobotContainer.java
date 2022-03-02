@@ -110,7 +110,7 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 
-	// public SequentialCommandGroup getAutonomousCommand2() {
+	// public SequentialCommandGroup getAutonomousCommand() {
 	// return new SequentialCommandGroup(
 	// m_StopDriveTrain);
 	// }

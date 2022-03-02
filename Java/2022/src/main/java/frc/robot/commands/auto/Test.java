@@ -13,7 +13,7 @@ import frc.robot.subsystems.*;
 
 public class Test extends CommandBase {
 	private final ExampleSubsystem m_FlyWheel;
-	Timer timer = new Timer();
+	private Timer timer = new Timer();
 
 	/**
 	 * Creates a new test.
