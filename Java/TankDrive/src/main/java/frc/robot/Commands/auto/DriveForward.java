@@ -5,27 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.XboxController;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class DriveWithJoystick extends CommandBase {
+public class DriveForward extends CommandBase {
 	private final DriveTrain m_DriveTrain;
-	XboxController xbox;
+	private Timer timer = new Timer();
 
 	/**
 	 * Creates a new ExampleCommand.
 	 *
 	 * @param subsystem The subsystem used by this command.
 	 */
-	public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
+	public DriveForward(DriveTrain DriveTrain) {
 		m_DriveTrain = DriveTrain;
-		xbox = x;
 		// Use requires() here to declare subsystem dependencies.
 		addRequirements(m_DriveTrain);
 	}
@@ -33,22 +33,26 @@ public class DriveWithJoystick extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		timer.reset();
+		timer.start();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_DriveTrain.driveBase.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
+		m_DriveTrain.driveBase.tankDrive(0.5, 0.5);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		m_DriveTrain.driveBase.tankDrive(0, 0);
+		timer.stop();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return timer.hasElapsed(1);
 	}
 }

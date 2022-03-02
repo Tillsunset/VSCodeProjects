@@ -8,8 +8,10 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.auto.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -20,19 +22,25 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class RobotContainer {
 
-  private XboxController xbox = new XboxController(0);
+	private XboxController xbox = new XboxController(0);
 
-  private final DriveTrain m_DriveTrain = new DriveTrain();
+	private DriveTrain m_DriveTrain = new DriveTrain();
 
-  private final DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+	private DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
+	private DriveForward m_DriveForward = new DriveForward(m_DriveTrain);
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
+	/**
+	 * The container for the robot. Contains subsystems, OI devices, and commands.
+	 */
+	public RobotContainer() {
 
-    // Configure the button bindings
+		// Configure the button bindings
 
-    m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
-  }
+		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);
+	}
+
+	public SequentialCommandGroup getAutonomousCommand() {
+		return new SequentialCommandGroup(
+				m_DriveForward);
+	}
 }
