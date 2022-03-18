@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-
 	private XboxController xbox = new XboxController(0);
 
 	private DriveTrain m_DriveTrain = new DriveTrain();
@@ -33,7 +32,6 @@ public class RobotContainer {
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
 	 */
 	public RobotContainer() {
-
 		// Configure the button bindings
 
 		m_DriveTrain.setDefaultCommand(m_DriveWithJoystick);

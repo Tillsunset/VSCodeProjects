@@ -70,9 +70,9 @@ doesNotContains = 				'''
 '''
 """
 
-knownLettersAndPosition = 		['','','','','']
-knownLettersButNotPosition = 	['','','','','']
-doesNotContains = 				'''
+knownLettersAndPosition = 		['','','','l','']
+knownLettersButNotPosition = 	['','','','et','s']
+doesNotContains = 				'''caresdoilypunto
 '''
 
 doesContains = ''

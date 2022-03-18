@@ -54,7 +54,7 @@ public class RobotContainer {
 	private PDP m_PDP = new PDP();
 
 	private CompressorControl m_CompressorControl = new CompressorControl(m_Pneumatics, m_PDP);
-	private DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain);
+	private DriveWithJoystick m_DriveWithJoystick = new DriveWithJoystick(m_DriveTrain, xbox);
 	private ShifterControl m_ShifterControl = new ShifterControl(m_Pneumatics, m_PDP, m_DriveTrain);
 	private SpinIndex m_SpinIndex = new SpinIndex(m_Index);
 	private IntakeOut m_IntakeOut = new IntakeOut(m_Pneumatics);
@@ -84,8 +84,6 @@ public class RobotContainer {
 		m_FlyWheel.register();
 
 		configureButtonBindings();
-
-		m_DriveWithJoystick.passJoy(xbox);
 	}
 
 	private void configureButtonBindings() {

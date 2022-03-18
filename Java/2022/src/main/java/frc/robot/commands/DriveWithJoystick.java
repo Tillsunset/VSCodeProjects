@@ -8,6 +8,9 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -16,15 +19,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriveWithJoystick extends CommandBase {
 	private final DriveTrain m_DriveTrain;
-	XboxController xbox;
+	private DoubleSupplier leftAxis;
+	private DoubleSupplier rightAxis;
 
 	/**
 	 * Creates a new ExampleCommand.
 	 *
 	 * @param subsystem The subsystem used by this command.
 	 */
-	public DriveWithJoystick(DriveTrain DriveTrain) {
+	public DriveWithJoystick(DriveTrain DriveTrain, XboxController x) {
 		m_DriveTrain = DriveTrain;
+		leftAxis = x::getLeftY;
+		leftAxis = x::getRightY;
 		// Use requires() here to declare subsystem dependencies.
 		addRequirements(m_DriveTrain);
 	}
@@ -37,7 +43,7 @@ public class DriveWithJoystick extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_DriveTrain.driveBase.tankDrive(xbox.getLeftY(), xbox.getRightY());
+		m_DriveTrain.driveBase.tankDrive(leftAxis.getAsDouble(), rightAxis.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.
@@ -49,9 +55,5 @@ public class DriveWithJoystick extends CommandBase {
 	@Override
 	public boolean isFinished() {
 		return false;
-	}
-
-	public void passJoy(XboxController x) {
-		xbox = x;
 	}
 }
