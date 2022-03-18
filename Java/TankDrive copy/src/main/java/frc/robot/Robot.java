@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     timer.reset();
     timer.start();
+	m_robotContainer.m_DriveForward.schedule();
   }
 
   /**
@@ -77,7 +78,6 @@ public class Robot extends TimedRobot {
    */
   //@Override
   public void autonomousPeriodic() {
-	  m_robotContainer.m_DriveForward.schedule();
   }
 
   @Override
