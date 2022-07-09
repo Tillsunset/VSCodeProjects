@@ -1,6 +1,6 @@
 import random
 import time
-testArray = []
+array = []
 
 def quicksort(x):
 	if len(x) > 2:# quickSort
@@ -26,8 +26,8 @@ def quicksort(x):
 					lower.append(pivot3)
 					pivot = pivot1
 				else:
-					pivot = pivot1
 					same.append(pivot3)
+					pivot = pivot1
 			else:
 				lower.append(pivot1)
 				pivot = pivot3
@@ -46,8 +46,8 @@ def quicksort(x):
 					lower.append(pivot3)
 					pivot = pivot2
 				else:
-					pivot = pivot2
 					same.append(pivot3)
+					pivot = pivot2
 			else:
 				lower.append(pivot2)
 				pivot = pivot3
@@ -72,23 +72,25 @@ def quicksort(x):
 
 		lower = quicksort(lower)
 		upper = quicksort(upper)
-		lower = lower + same 
+		lower = lower + same
+		lower.append(pivot)
 		lower = lower + upper 
 		return lower
 	elif len(x) == 2:
 		if x[0] < x[1]:
 			return x
 		else:
-			return [x[1], x[0]]
+			x.reverse()
+			return x
 	else:
 		return x
 
 
-while len(testArray) < 10000:
-	testArray.append(random.randint(0, 100000))
+while len(array) < 100000:
+    array.append(random.randint(0,100000))
 
 	
 start = time.time()
-testArray = quicksort(testArray)
+array = quicksort(array)
 print(time.time() - start)
 # print(testArray)

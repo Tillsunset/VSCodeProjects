@@ -77,7 +77,7 @@ def siftDownHelper(x, index):
 			break
 	return x
 
-while len(array) < 10000:
+while len(array) < 100000:
     array.append(random.randint(0,100000))
 
 array = heapify(array)

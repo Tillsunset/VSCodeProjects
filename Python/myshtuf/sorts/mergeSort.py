@@ -46,7 +46,7 @@ def merge(x):
             tempArray.append(merges(x[i]))
     return tempArray
 
-while len(array) < 10000:
+while len(array) < 100000:
     array.append(random.randint(0,100000))
 split(array)
 

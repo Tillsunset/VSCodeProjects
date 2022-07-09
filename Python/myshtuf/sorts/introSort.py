@@ -1,7 +1,13 @@
 import random
 import time
 start = time.time()
-testArray = []
+array = []
+
+def checkSorted(x):
+	for i in range(1,len(x)):
+		if x[i - 1] > x[i]:
+			return False
+	return True
 
 def introsort(x):
     if len(x) > 15:# quickSort
@@ -43,8 +49,10 @@ def introsort(x):
         return x
 
 
-while len(testArray) < 10000:
-    testArray.append(random.randint(0, 100000))
-testArray = introsort(testArray)
+
+while len(array) < 100000:
+    array.append(random.randint(0,100000))
+array = introsort(array)
 #print(testArray)
 print(time.time() - start)
+print(checkSorted(array))
