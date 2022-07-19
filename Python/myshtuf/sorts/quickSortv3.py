@@ -77,10 +77,10 @@ def quicksort(x):
 		lower = lower + upper 
 		return lower
 	elif len(x) == 2:
-		if x[0] < x[1]:
+		if x[0] > x[1]:
+			x.reverse()
 			return x
 		else:
-			x.reverse()
 			return x
 	else:
 		return x
