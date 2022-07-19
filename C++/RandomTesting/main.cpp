@@ -16,4 +16,5 @@ int main() {
    std::cout << x[0] <<" " << x[1] << std::endl;
 
 	func(1,2);
+	return 0;
 }

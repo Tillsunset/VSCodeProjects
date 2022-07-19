@@ -87,7 +87,7 @@ def quicksort(x):
 
 
 while len(array) < 100000:
-    array.append(random.randint(0,100000))
+	array.append(random.randint(0,100000))
 
 	
 start = time.time()

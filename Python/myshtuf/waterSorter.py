@@ -8,8 +8,8 @@ moves = []
 possibleMoves = []
 
 for i in range(size):
-    smallArray = ["E", "E", "E", "E"]
-    bigArray.append(smallArray)
+	smallArray = ["E", "E", "E", "E"]
+	bigArray.append(smallArray)
 
 # Blue
 # Cyan
@@ -27,35 +27,35 @@ for i in range(size):
 #         j = input("enter color")
 
 def swap(move, arr):
-    return arr
+	return arr
 
 def checkMoves(arr):
-    global possibleMoves
+	global possibleMoves
 
 def checkSolved(array):
-    global solved
-    solved = True
-    for i in array:
-        for k in range(3):
-            if i[k] != i[k+1]:
-                solved = False
+	global solved
+	solved = True
+	for i in array:
+		for k in range(3):
+			if i[k] != i[k+1]:
+				solved = False
 
 def solve(arr):
-    checkSolved(arr)
-    if not solved:
-        currentMove = []
-        for move in checkMoves(arr):
-            currentMove.append(move)
-            array = swap(move, arr)
-            checkSolved(array)
-            if solved:
-                break
-            else:
-                solve(array)
-            currentMove.pop()
-        return currentMove
-    else:
-        return []
+	checkSolved(arr)
+	if not solved:
+		currentMove = []
+		for move in checkMoves(arr):
+			currentMove.append(move)
+			array = swap(move, arr)
+			checkSolved(array)
+			if solved:
+				break
+			else:
+				solve(array)
+			currentMove.pop()
+		return currentMove
+	else:
+		return []
 
 moves.append(solve(bigArray))
 

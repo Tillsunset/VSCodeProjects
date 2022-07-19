@@ -16,35 +16,35 @@ commonArray = []
 temp = ''
 
 for line in common:
-    temp = line
-    for i in string.punctuation:
-        temp = temp.replace(i,'')
-    temp = temp.replace('\n','')
-    commonArray.append(temp.lower())
+	temp = line
+	for i in string.punctuation:
+		temp = temp.replace(i,'')
+	temp = temp.replace('\n','')
+	commonArray.append(temp.lower())
 
 commonArray = dict.fromkeys(commonArray)
 
 for line in dictionary2:
-    temp = line
-    for i in string.punctuation:
-        temp = temp.replace(i,'')
-    temp = temp.replace('\n','')
-    dictionary2Array.append(temp.lower())
+	temp = line
+	for i in string.punctuation:
+		temp = temp.replace(i,'')
+	temp = temp.replace('\n','')
+	dictionary2Array.append(temp.lower())
 
 dictionary2Array = dict.fromkeys(dictionary2Array)
 
 for line in dictionary:
-    temp = line
-    for i in string.punctuation:
-        temp = temp.replace(i,'')
-    temp = temp.replace('\n','')
-    temp1.append(temp.lower())
+	temp = line
+	for i in string.punctuation:
+		temp = temp.replace(i,'')
+	temp = temp.replace('\n','')
+	temp1.append(temp.lower())
 
 temp1 = dict.fromkeys(temp1)
 
 for i in temp1:
-    if not i in dictionary2Array and not i in commonArray :
-        dictionaryArray.append(i)
+	if not i in dictionary2Array and not i in commonArray :
+		dictionaryArray.append(i)
 
 dictionaryArray = list(dict.fromkeys(dictionaryArray))
 
@@ -58,4 +58,4 @@ realDicPath = '/Users/sebastian/Desktop/realDic.txt'
 realDic = open(realDicPath,'r+')
 
 for i in dictionaryArray:
-    realDic.write(i+'\n')
+	realDic.write(i+'\n')

@@ -2,11 +2,11 @@ import math
 
 
 def isPrime(k):
-    for i in range(2, int(math.sqrt(k) + 1)):
-        if (k % i) == 0:
-            return False
-    else:
-        return True
+	for i in range(2, int(math.sqrt(k) + 1)):
+		if (k % i) == 0:
+			return False
+	else:
+		return True
 
 
 num = 2
@@ -17,15 +17,15 @@ num = 2
 
 while True:
 
-    testnum = (2**num)-1
-    for i in range(2, int(math.sqrt(num))+1):
-        if (num % i) == 0:
-            break
-    else:
-        for g in range(2, int(math.sqrt(testnum)+1)):
-            if isPrime(g):
-                if (testnum % g) == 0:
-                    break
-        else:
-            print(testnum)
-    num += 1
+	testnum = (2**num)-1
+	for i in range(2, int(math.sqrt(num))+1):
+		if (num % i) == 0:
+			break
+	else:
+		for g in range(2, int(math.sqrt(testnum)+1)):
+			if isPrime(g):
+				if (testnum % g) == 0:
+					break
+		else:
+			print(testnum)
+	num += 1

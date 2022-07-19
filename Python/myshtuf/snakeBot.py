@@ -45,24 +45,24 @@ vertexArray = []
 #     self.foodx = Foodx
 #     self.foody = Foody
 #     self.positionList = SnakePositionList
-    
-    
+	
+	
 import snake
 import pygame
 
 temp = True 
 def chooseDirection():
-    global temp
-    if temp:
-        snake.setDirection(snake.Direction.Down.value)
-        temp = False
+	global temp
+	if temp:
+		snake.setDirection(snake.Direction.Down.value)
+		temp = False
 
 snake.__init__()
 
 while not snake.gameClose:
-    snake.gameLoop()
+	snake.gameLoop()
 
-    chooseDirection()
+	chooseDirection()
 
 snake.quitCall()
 

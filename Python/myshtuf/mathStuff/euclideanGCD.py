@@ -7,12 +7,12 @@ c = 1
 gcd = 1
 
 if a > b:
-    c, gcd = a, b
+	c, gcd = a, b
 else:
-    c, gcd = b, a
+	c, gcd = b, a
 
 while not c % gcd == 0:
-    c, gcd = gcd, c % gcd
+	c, gcd = gcd, c % gcd
 
 print(a)
 print(b)

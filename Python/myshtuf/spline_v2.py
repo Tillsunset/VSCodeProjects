@@ -22,26 +22,26 @@ TIMEUNIT = 0.05
 TIMEUNITINVERSE = 1.0/TIMEUNIT
 
 def xVelocity(velocity, angle):
-    return velocity * math.cos(angle * DEGREESTORADIANS)
+	return velocity * math.cos(angle * DEGREESTORADIANS)
 
 def yVelocity(velocity, angle):
-    return velocity * math.sin(angle * DEGREESTORADIANS)
+	return velocity * math.sin(angle * DEGREESTORADIANS)
 
 def calculatePosition(pos, vel, acc, jer):
-    return pos + vel * TIMEUNIT + (acc* TIMEUNIT**2)/2 + (jer * TIMEUNIT**3)/6
+	return pos + vel * TIMEUNIT + (acc* TIMEUNIT**2)/2 + (jer * TIMEUNIT**3)/6
 
 def calculateVelocity(vel, acc, jer):
-    return vel + acc * TIMEUNIT + (jer* TIMEUNIT**2)/2
+	return vel + acc * TIMEUNIT + (jer* TIMEUNIT**2)/2
 
 def calculateAcceleration(acc, jer):
-    return acc + jer * TIMEUNIT
+	return acc + jer * TIMEUNIT
 
 # Step 1 create a spline
 # Interpolate angles
 for i in range (0,len(states) - 1):
-    differenceX = states[i + 1][0] - states[i + 0][0]
-    differenceY = states[i + 1][1] - states[i + 0][1]
-    interpolatedAngles.append(math.atan2(differenceY,differenceX))
+	differenceX = states[i + 1][0] - states[i + 0][0]
+	differenceY = states[i + 1][1] - states[i + 0][1]
+	interpolatedAngles.append(math.atan2(differenceY,differenceX))
 
 
 
