@@ -5,11 +5,20 @@
 		},
 		{
 			"path": "../Html/ClockWebsite"
+		},
+		{
+			"path": "../Html/swe-project-13"
+		},
+		{
+			"path": "../Html/Tillsunset.github.io"
 		}
 	],
 	"settings": {
 		"xenlive-edit.remote.deviceIP": "root@localhost",
 		"xenlive-edit.remote.widgetName": "test",
-		"liveServer.settings.multiRootWorkspaceName": "VandyTab"
+		"liveServer.settings.multiRootWorkspaceName": "ClockWebsite",
+		"githubPullRequests.ignoredPullRequestBranches": [
+			"master"
+		]
 	}
 }
