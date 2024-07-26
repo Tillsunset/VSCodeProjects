@@ -12,13 +12,5 @@
 		{
 			"path": "../Html/Tillsunset.github.io"
 		}
-	],
-	"settings": {
-		"xenlive-edit.remote.deviceIP": "root@localhost",
-		"xenlive-edit.remote.widgetName": "test",
-		"liveServer.settings.multiRootWorkspaceName": "ClockWebsite",
-		"githubPullRequests.ignoredPullRequestBranches": [
-			"master"
-		]
-	}
+	]
 }

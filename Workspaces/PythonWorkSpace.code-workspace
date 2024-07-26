@@ -4,10 +4,5 @@
 			"name": "myshtuf",
 			"path": "../Python/myshtuf"
 		}
-	],
-	"settings": {
-		"debug.console.wordWrap": false,
-		"python.pythonPath": "/Users/sebastian/.pyenv/versions/3.10.1/bin/python"
-	},
-	"python.terminal.launchArgs": []
+	]
 }
