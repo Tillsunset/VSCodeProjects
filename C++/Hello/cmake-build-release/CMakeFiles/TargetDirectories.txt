@@ -1,3 +1,0 @@
-/Users/sebastianlara/VSCodeProjects/C++/Hello/cmake-build-release/CMakeFiles/Hello.dir
-/Users/sebastianlara/VSCodeProjects/C++/Hello/cmake-build-release/CMakeFiles/edit_cache.dir
-/Users/sebastianlara/VSCodeProjects/C++/Hello/cmake-build-release/CMakeFiles/rebuild_cache.dir
